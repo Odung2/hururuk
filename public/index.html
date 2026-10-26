@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hururuk | Completed Korean Webtoons &amp; Manhwa in English</title>
+<meta name="description" content="Completed Korean webtoons in English, all the way to the final episode. Hururuk is in pre-launch: join the waitlist.">
+<meta property="og:title" content="Hururuk: the digital manhwabang for completed Korean webtoons">
+<meta property="og:description" content="Completed Korean webtoons in English, all the way to the final episode. Join the pre-launch waitlist.">
+<meta property="og:image" content="https://hururuk.app/og.jpg">
+<meta property="og:url" content="https://hururuk.app/">
+<link rel="canonical" href="https://hururuk.app/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🍜%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFFFF; --soft:#F1F2F7; --ink:#1B1D2A; --ink-2:#555A72; --rule:#DADCE7; --line:#1B1D2A;
+  --brand:#3D3BF3; --on-brand:#FFFFFF; --bubble:#FFE14D; --on-bubble:#1B1D2A; --lock:#8A8FA8;
+  color-scheme:light; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#111219; --soft:#1A1C27; --ink:#ECEDF5; --ink-2:#A6AAC0; --rule:#2E3142; --line:#4A4E66;
+    --brand:#8584FF; --on-brand:#111219; --lock:#6E7390; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111219; --soft:#1A1C27; --ink:#ECEDF5; --ink-2:#A6AAC0; --rule:#2E3142; --line:#4A4E66;
+  --brand:#8584FF; --on-brand:#111219; --lock:#6E7390; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans KR","Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:20;background:var(--bg)}
+.display{font-family:"Black Han Sans","IBM Plex Sans KR",Arial,sans-serif;font-weight:400}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--bg);border-bottom:2px solid var(--line)}
+.bar{display:flex;align-items:center;gap:12px;height:58px}
+.logo{display:flex;align-items:center;gap:9px;color:var(--ink);background:none;border:0;padding:0;cursor:pointer}
+.mark{position:relative;background:var(--brand);color:var(--on-brand);font-size:15px;line-height:1;padding:7px 9px;border-radius:8px}
+.mark::after{content:"";position:absolute;left:8px;bottom:-6px;border:6px solid transparent;border-top-color:var(--brand);border-bottom:0}
+.logo b{font-size:22px}
+.spacer{flex:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:2px solid var(--ink);background:var(--ink);color:var(--bg);border-radius:8px;padding:10px 18px;font-weight:600;cursor:pointer}
+.btn.brand{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.sm{padding:6px 12px;font-size:14px}
+section[hidden]{display:none}
+
+/* home */
+.hero{padding:40px 0 28px;display:grid;grid-template-columns:1.1fr .9fr;gap:32px;align-items:center}
+.hero h1{font-size:clamp(34px,6vw,64px);line-height:1.04;margin:0 0 16px;max-width:13ch}
+.hero p{font-size:18px;color:var(--ink-2);margin:0 0 22px;max-width:44ch}
+.hero .cta{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.price{font-size:14px;color:var(--ink-2)}
+.stack{position:relative;height:380px}
+.stack .cover{position:absolute;width:42%;box-shadow:6px 6px 0 var(--line)}
+.stack .cover:nth-child(1){left:4%;top:34px;transform:rotate(-6deg)}
+.stack .cover:nth-child(2){left:29%;top:0;z-index:2}
+.stack .cover:nth-child(3){left:54%;top:44px;transform:rotate(5deg)}
+@media (max-width:760px){.hero{grid-template-columns:1fr;padding-top:26px}.stack{height:280px}}
+.promise{display:grid;grid-template-columns:repeat(3,1fr);border-top:2px solid var(--line);border-bottom:2px solid var(--line);margin:8px 0 34px}
+.promise div{padding:16px 18px 16px 0}
+.promise div+div{padding-left:18px;border-left:1px solid var(--rule)}
+.promise b{display:block;font-size:16px}
+.promise span{font-size:14px;color:var(--ink-2)}
+@media (max-width:760px){.promise{grid-template-columns:1fr}.promise div+div{border-left:0;border-top:1px solid var(--rule);padding-left:0}}
+.shelf-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.shelf-head h2{font-size:28px;margin:0}
+.shelf-head .count{font-size:14px;color:var(--ink-2)}
+.rowscroll{display:flex;gap:16px;overflow-x:auto;padding:4px 2px 18px;margin-bottom:26px;scroll-snap-type:x proximity}
+.rowscroll .card{flex:0 0 168px;scroll-snap-align:start}
+.rank{display:flex;align-items:baseline;gap:8px;margin-top:9px}
+.rank em{font-style:normal;font-family:"Black Han Sans",sans-serif;font-size:26px;line-height:1;color:var(--brand)}
+.rank b{margin-top:0!important}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.chips button{border:2px solid var(--rule);background:var(--bg);border-radius:999px;padding:4px 12px;font-size:14px;cursor:pointer}
+.chips button[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:22px 16px;padding-bottom:48px}
+.card{background:none;border:0;padding:0;text-align:left;cursor:pointer;color:inherit}
+.card .cover{width:100%;transition:transform .15s,box-shadow .15s}
+.card:hover .cover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--line)}
+.card b{display:block;margin-top:9px;font-size:15px;line-height:1.3}
+.card span{font-size:13px;color:var(--ink-2)}
+
+/* covers */
+.cover{position:relative;aspect-ratio:2/3;border-radius:6px;border:2px solid var(--line);overflow:hidden;background:#0E0F16}
+.cover > img,.cover > svg{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
+
+/* title page */
+.tp{display:grid;grid-template-columns:280px 1fr;gap:36px;padding:36px 0 56px;align-items:start}
+.tp h1{font-size:clamp(30px,4.6vw,46px);line-height:1.08;margin:0 0 8px}
+.meta{color:var(--ink-2);font-size:15px;margin:0 0 16px}
+.hook{font-size:18px;margin:0 0 22px;max-width:46ch}
+.eps{margin-top:30px;border-top:2px solid var(--line)}
+.ep{display:flex;align-items:center;gap:14px;width:100%;background:none;border:0;border-bottom:1px solid var(--rule);padding:13px 2px;text-align:left;cursor:pointer}
+.ep .no{font-weight:700;width:58px;flex:none}
+.ep .nm{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ep .free{font-size:12px;font-weight:700;background:var(--bubble);color:var(--on-bubble);border-radius:4px;padding:2px 8px}
+.ep .lk{font-size:12px;color:var(--lock);display:flex;align-items:center;gap:5px}
+.ep.locked .nm{color:var(--ink-2)}
+.more{color:var(--ink-2);font-size:14px;padding:12px 2px}
+.back{background:none;border:0;padding:0;color:var(--ink-2);cursor:pointer;font-size:14px;margin-top:22px}
+@media (max-width:720px){.tp{grid-template-columns:1fr;gap:20px;padding-top:20px}.tp .cover{max-width:220px}}
+
+/* reader */
+.rbar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 60px);z-index:8;background:var(--bg);border-bottom:1px solid var(--rule)}
+.rbar .in{max-width:620px;margin:0 auto;padding:8px 16px;display:flex;align-items:center;gap:10px;font-size:14px}
+.rbar .in b{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prog{height:3px;background:var(--rule)}
+.prog i{display:block;height:100%;width:0;background:var(--brand)}
+.strip{max-width:620px;margin:0 auto;padding:0 0 10px}
+.panel{position:relative;margin:0;border-bottom:14px solid var(--bg);overflow:hidden}
+.panel svg{display:block;width:100%;height:auto}
+.ipanel{background-repeat:no-repeat;background-color:#0E0F16}
+.ipanel.dark::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.75))}
+.cap{position:absolute;left:16px;top:16px;max-width:72%;background:var(--bubble);color:var(--on-bubble);border:2px solid #1B1D2A;padding:8px 12px;font-weight:600;font-size:clamp(14px,3.6vw,17px);line-height:1.35;z-index:1}
+.say{position:absolute;right:18px;top:18px;max-width:62%;background:#FFFFFF;color:#1B1D2A;border:2px solid #1B1D2A;border-radius:22px;padding:10px 16px;font-size:clamp(14px,3.6vw,17px);line-height:1.35;z-index:1}
+.say::after{content:"";position:absolute;left:28px;bottom:-14px;width:18px;height:14px;background:#FFFFFF;border-left:2px solid #1B1D2A;border-bottom:2px solid #1B1D2A;transform:skewX(30deg)}
+.cliff{position:absolute;inset:auto 16px 18px 16px;color:#FFFFFF;font-family:"Black Han Sans","IBM Plex Sans KR",sans-serif;font-size:clamp(20px,5.4vw,28px);line-height:1.2;text-shadow:0 2px 0 #000;z-index:1}
+.next{max-width:620px;margin:0 auto;padding:16px 16px 56px;display:grid;gap:10px;text-align:center}
+.next .lbl{font-size:14px;color:var(--ink-2)}
+
+/* paywall */
+.wall{max-width:620px;margin:0 auto 56px;padding:0 16px}
+.wall .box{border:2px solid var(--line);border-radius:14px;padding:28px 24px;background:var(--soft);text-align:center}
+.wall h2{font-size:30px;line-height:1.1;margin:0 0 10px}
+.wall p{margin:0 auto 18px;max-width:40ch;color:var(--ink-2)}
+.plan{display:inline-grid;gap:2px;border:2px solid var(--ink);border-radius:10px;padding:12px 26px;margin:0 0 18px;background:var(--bg)}
+.plan b{font-size:30px;line-height:1.1}
+.plan span{font-size:13px;color:var(--ink-2)}
+.wall ul{list-style:none;padding:0;margin:0 auto 20px;max-width:340px;text-align:left;display:grid;gap:6px;font-size:15px}
+.wall li::before{content:"✓";color:var(--brand);font-weight:700;margin-right:8px}
+
+/* modal */
+dialog{border:2px solid var(--line);border-radius:14px;padding:0;max-width:440px;width:calc(100% - 32px);background:var(--bg);color:var(--ink)}
+dialog::backdrop{background:rgba(10,11,18,.55)}
+.mod{padding:26px 24px 22px}
+.mod h2{font-size:26px;line-height:1.15;margin:0 0 10px}
+.mod p{margin:0 0 16px;color:var(--ink-2)}
+.mod label.f{display:grid;gap:6px;font-weight:600;font-size:14px;margin-bottom:12px}
+.mod input[type=email]{border:2px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--bg);width:100%}
+.opt{display:flex;gap:9px;align-items:flex-start;font-size:14px;margin:0 0 6px;cursor:pointer}
+.opt input{margin-top:4px;accent-color:var(--brand)}
+.err{color:#C2410C;font-size:14px;min-height:1.4em;margin:4px 0 8px}
+.mod .row{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.ok-mark{width:54px;height:54px;border-radius:50%;background:var(--bubble);color:var(--on-bubble);display:grid;place-items:center;font-size:26px;font-weight:700;border:2px solid #1B1D2A;margin-bottom:14px}
+.pre{background:var(--bubble);color:var(--on-bubble);font-size:13px;text-align:center;padding:7px 14px;line-height:1.4}
+.pre button{background:none;border:0;padding:0;font-weight:700;text-decoration:underline;cursor:pointer;color:inherit;font-size:inherit}
+.mod a,footer a{color:inherit}
+.eyebrow{display:inline-block;font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--brand);margin:0 0 12px}
+footer{border-top:1px solid var(--rule);padding:18px 0 28px;font-size:13px;color:var(--ink-2)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap bar">
+    <button class="logo" type="button" data-go="home" aria-label="Hururuk home"><span class="mark display">H</span><b class="display">Hururuk</b></button>
+    <div class="spacer"></div>
+    <button class="btn brand sm" type="button" data-sub>Subscribe $4.99</button>
+  </div>
+</header>
+<div class="pre">Pre-launch preview. The series shown are concepts and not available yet. <button type="button" data-sub>Join the waitlist</button></div>
+
+<main>
+  <section id="v-home">
+    <div class="wrap">
+      <div class="hero">
+        <div>
+          <p class="eyebrow">The digital manhwabang for completed Korean webtoons</p>
+          <h1 class="display">Binge the ending you never got to read.</h1>
+          <p>Completed Korean webtoons, officially licensed and translated into English. The first 3 episodes of every series are free.</p>
+          <div class="cta">
+            <button class="btn" type="button" data-scroll="shelf">Browse completed series</button>
+            <span class="price">Then $4.99 a month for everything.</span>
+          </div>
+        </div>
+        <div class="stack" id="stack" aria-hidden="true"></div>
+      </div>
+      <div class="promise">
+        <div><b>Only completed series</b><span>Start today, read to the finale. No waiting for updates.</span></div>
+        <div><b>Licensed from Korean studios</b><span>Creators are paid for every episode you read.</span></div>
+        <div><b>Translated with care</b><span>AI does the first draft. People check every episode.</span></div>
+      </div>
+      <div class="shelf-head"><h2 class="display">Most binged this week</h2></div>
+      <div class="rowscroll" id="top"></div>
+      <div class="shelf-head" id="shelf">
+        <h2 class="display">All completed series</h2>
+        <span class="count" id="count"></span>
+      </div>
+      <div class="chips" id="chips" role="group" aria-label="Filter by genre"></div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section id="v-title" hidden>
+    <div class="wrap"><div class="tp" id="tp"></div></div>
+  </section>
+
+  <section id="v-read" hidden>
+    <div class="rbar">
+      <div class="in">
+        <button class="btn ghost sm" type="button" id="toTitle">Episodes</button>
+        <b id="rTitle"></b><span id="rEp"></span>
+      </div>
+      <div class="prog"><i id="prog"></i></div>
+    </div>
+    <div class="strip" id="strip"></div>
+    <div id="after"></div>
+  </section>
+</main>
+
+<footer><div class="wrap">Hururuk is in pre-launch. The series shown are concept previews and their cover art is AI-generated. <a href="/privacy.html">Privacy notice</a></div></footer>
+
+<dialog id="dlg" aria-labelledby="dlgH"><div class="mod" id="mod"></div></dialog>
+
+<script>
+/* ---------- first-party analytics: anonymous events stored in our own Cloudflare D1 ---------- */
+const SESSION = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Math.random()).slice(2) + Date.now();
+let landed = false, finished = false, subSource = '';
+function track(name, props = {}) {
+  const body = JSON.stringify(Object.assign({ name, session: SESSION }, props));
+  try {
+    if (navigator.sendBeacon) navigator.sendBeacon('/api/event', body);
+    else fetch('/api/event', { method: 'POST', body, keepalive: true });
+  } catch (e) {}
+}
+function trafficSource() {
+  const q = new URLSearchParams(location.search);
+  if (q.get('utm_source')) return q.get('utm_source').slice(0, 60);
+  try { return document.referrer ? new URL(document.referrer).hostname : 'direct'; } catch (e) { return 'direct'; }
+}
+const IMGS = {"moonlit": "/covers/moonlit.webp", "saintess": "/covers/saintess.webp", "hunter": "/covers/hunter.webp", "iron": "/covers/iron.webp", "murim": "/covers/murim.webp", "necro": "/covers/necro.webp", "divorce": "/covers/divorce.webp", "cafe": "/covers/cafe.webp", "tensteps": "/covers/tensteps.webp", "chorus": "/covers/chorus.webp", "bouquets": "/covers/bouquets.webp", "lastbus": "/covers/lastbus.webp", "bookkeeper": "/covers/bookkeeper.webp", "uncles": "/covers/uncles.webp", "witch": "/covers/witch.webp", "crown": "/covers/crown.webp", "duchess": "/covers/duchess.webp", "spring": "/covers/spring.webp", "curses": "/covers/curses.webp", "propose": "/covers/propose.webp", "marquess": "/covers/marquess.webp", "empress": "/covers/empress.webp", "accountant": "/covers/accountant.webp", "hireme": "/covers/hireme.webp", "healer": "/covers/healer.webp", "regressor": "/covers/regressor.webp", "ninth": "/covers/ninth.webp", "lostfound": "/covers/lostfound.webp", "gate4am": "/covers/gate4am.webp", "swordsaint": "/covers/swordsaint.webp", "dragonjob": "/covers/dragonjob.webp", "overtime": "/covers/overtime.webp", "transfer": "/covers/transfer.webp", "wedding20": "/covers/wedding20.webp", "blinddate": "/covers/blinddate.webp", "planner": "/covers/planner.webp", "rule7": "/covers/rule7.webp", "sunbae": "/covers/sunbae.webp", "pitcher": "/covers/pitcher.webp", "umbrella": "/covers/umbrella.webp", "setpoint": "/covers/setpoint.webp", "bench": "/covers/bench.webp", "orbital": "/covers/orbital.webp", "busanport": "/covers/busanport.webp", "inspector": "/covers/inspector.webp", "rumor": "/covers/rumor.webp", "apt1204": "/covers/apt1204.webp", "missing37": "/covers/missing37.webp", "password": "/covers/password.webp", "desk": "/covers/desk.webp", "rider": "/covers/rider.webp", "catstore": "/covers/catstore.webp", "grandma": "/covers/grandma.webp", "ghostrent": "/covers/ghostrent.webp"};
+const GENRES = {rofan:'Romance fantasy',action:'Action fantasy',drama:'Drama & romance',bl:'BL',gl:'GL',family:'Family',hist:'Historical',thriller:'Thriller & horror',comedy:'Comedy & slice of life',sports:'Sports',sf:'Sci-fi'};
+const PAL = {
+  rofan:[['#2B2A6B','#F7C6D9'],['#5B1F3C','#FFD1A6'],['#1E3550','#BFE3FF'],['#3D2B1F','#F2C46D']],
+  action:[['#0F3D3E','#7FE0C3'],['#3A0D0D','#FF6B5B'],['#1A1A2E','#9D8CFF'],['#2A2410','#FFC34D']],
+  drama:[['#1F3B73','#DCEBFF'],['#4A2C40','#FFB7C5'],['#23313F','#F4D58D']],
+  bl:[['#2C1B3A','#F4A6C8'],['#132A3A','#8FD3FF']],
+  gl:[['#3A2238','#FFD3E0'],['#1E3A3A','#C9F2E0']],
+  family:[['#3B2A14','#FFD58A']],
+  hist:[['#3B1E10','#F6C177'],['#16232E','#E2D3B5']],
+  thriller:[['#0B0F14','#A7F3D0'],['#140B0B','#FF5D5D'],['#0E0E18','#C4B5FD']],
+  comedy:[['#E2702F','#FFF3C4'],['#2E9C74','#FFFBEA'],['#6A4FE0','#FFE14D']],
+  sports:[['#0D2A4A','#FFB703'],['#123B2A','#E9FF70']],
+  sf:[['#070B1F','#7DD3FC'],['#120A26','#F0ABFC']]
+};
+// t: id, title, g (genre), eps, hook, s (3 episodes of [caption, line, cliffhanger]) optional, eplist optional
+const RAW = [
+ ['moonlit','The Moonlit Apothecary','rofan',142,'A palace apothecary who works only at night. A royal heir who can sleep only when the apothecary is near.',
+  [["The palace apothecary opens at midnight.","Another sleepless royal? Sit. Don’t touch anything.","The heir hadn’t slept in forty days. Until tonight."],["Rumors travel faster than medicine.","If anyone asks, this tea is for my headaches.","Someone in the palace wants the apothecary gone."],["A missing jar. A poisoned cup.","I didn’t brew this. Look at the label.","The handwriting on the label was the heir’s."]],
+  ['The night shift','Tea for headaches','The label','A borrowed lantern','Palace hours','Bitter roots']],
+ ['saintess','The Saintess Has Retired','rofan',118,'Ten years of miracles, one resignation letter. The knights of the realm refuse to accept it.',
+  [["Ten years of miracles. One letter of resignation.","I said I retired. Take your swords back to the capital.","The knights did not leave. They camped in the garden."],["The village has never been this safe.","Please stop kneeling in my tomatoes.","Then the crown prince arrived, carrying a sick dragon."],["Retired saints don’t do miracles. Officially.","Fine. One cup of tea. Then everyone goes home.","The dragon drank the tea and swore loyalty on the spot."]],
+  ['Resignation letter','Knights in the garden','Tomato season','A sick dragon','One cup of tea','Overtime miracle']],
+ ['hunter','Return of the 99th Hunter','action',176,'Ninety-eight hunters fell in the tower. The ninety-ninth came back with all of their memories.',
+  [["Floor 99. Ninety-eight hunters fell here.","I remember all of them. Every single one.","The tower door opened. It was day one again."],["Second chances come with a price.","Don’t take the left corridor. Trust me.","The guild master was standing in the left corridor."],["Somebody else remembers, too.","You came back. So did I.","And this time, they were already on floor 100."]],
+  ['Floor 99','The left corridor','Floor 100','Guild rules','The first gate','Old debts']],
+ ['iron','Iron Sword Academy','action',210,'Expelled on day one. Back on day two, carrying a sword no one else can lift.',
+  [["Iron Sword Academy. Day one.","Expelled? For lifting the sword wrong?","Day two. The sword lifted itself."],["Nobody returns after expulsion.","I’m not here to enroll. I’m here to return this.","The headmaster went pale."],["The sword had chosen a student once before.","That was eighty years ago.","That student never graduated either."]],
+  ['Day one','Day two','Eighty years','The headmaster','Training yard','Iron oath']],
+ ['murim','Murim Tax Collector','action',198,'The most feared sects in the martial world can survive any sword. Not an audit.',
+  [["Mount Heuk. The sect no one dares to visit.","You owe forty years of taxes. Plus interest.","The sect master laughed. Then saw the imperial seal."],["Swords are sharp. Ledgers are sharper.","I don’t fight. I audit.","Every sect in the land started hiding its books."],["Someone in the Martial Alliance is skimming gold.","The numbers don’t lie. People do.","The missing gold led straight to the collector’s old master."]],
+  ['Forty years overdue','The audit','Hidden books','The Alliance','Interest','Old master']],
+ ['necro','Necromancer Delivery Service','action',124,'Same-night delivery anywhere in the capital, handled by a very cheerful necromancer and an undead crew.',
+  [["Same-night delivery, anywhere in the capital.","Team, rattle less. Customers get nervous.","The next package was addressed to a grave."],["Skeletons never call in sick.","Sign here, please. A bone is also fine.","A customer refused the parcel. It was ticking."],["The couriers’ guild wants them shut down.","We deliver. That’s all we do.","Inside the last box was a crown no one should own."]],
+  ['Same-night delivery','Fragile','Return to sender','Guild complaint','Night route','The last box']],
+ ['divorce','Our Divorce Is Next Tuesday','drama',110,'Three years married, seven days left. Both of them are pretending this is fine.',
+  [["Three years married. Seven days left.","We agreed. Tuesday at ten. Don’t be late.","Neither of them had told their families yet."],["Dividing the apartment is easy. Dividing the cat isn’t.","You can have the sofa. I’m keeping the plant.","The plant had been a gift from their first date."],["Monday night. The paperwork was ready.","Do you still want to do this?","The pen ran out of ink. Neither of them found another."]],
+  ['Seven days','The cat question','The plant','Family dinner','Monday night','Out of ink']],
+ ['cafe','Night Shift at Café Haneul','comedy',88,'A café that opens at midnight, and the regulars who can’t sleep.',
+  [["Café Haneul opens at 12 a.m.","The usual? Oat latte, no small talk.","Table 3 ordered for someone who wasn’t there."],["Regulars come for coffee. They stay for each other.","You can sit here. It’s quieter by the window.","The new customer left a sketchbook behind."],["Every page was a drawing of the café.","Some of these are from before we opened.","The last page was dated tomorrow."]],
+  ['Table 3','The sketchbook','Dated tomorrow','Oat latte','Closing time','Rain check']],
+ ['tensteps','Ten Steps Behind the Crown Prince','bl',124,'The crown prince walks first. The royal guard walks ten steps behind. That distance is the law.',
+  [["The crown prince walks first. The guard walks ten steps behind.","Your Highness, don’t turn around. Someone is watching.","For the first time, the prince turned around anyway."],["A guard’s place is behind the throne, never beside it.","Ten steps. That is the rule.","That night, the distance became nine."],["An assassin in the palace. Orders from the queen.","If I fall, keep walking.","The guard did not keep walking."]],
+  ['Ten steps','Don’t turn around','Nine steps','The queen’s order','Autumn hunt','Keep walking']],
+ ['chorus','Second Chorus','bl',90,'A failed duo, a closed studio, and one last recording session that changes everything.',
+  [["A failed duo. A closed studio. One last session.","Take it from the second chorus. That’s where it broke last time.","The demo they deleted went viral overnight."],["Comebacks need contracts. Contracts need trust.","Sing it like you mean it this time.","The label wanted only one of them."],["Old songs, new rules.","We wrote this together. We finish it together.","The final verse was a lyric neither of them had written."]],
+  ['Last session','Viral','The contract','Solo offer','Studio B','Final verse']],
+ ['bouquets','Two Bouquets','gl',70,'Two maids of honor at the same wedding, and a rivalry that keeps turning into something else.',
+  [["Two maids of honor. One wedding. Zero chill.","Your bouquet is blocking my photo.","Both bouquets were thrown. Both landed in the same pair of hands."],["Florists talk. Brides talk more.","Peonies are for people who plan ahead.","At dinner, they were seated together. On purpose."],["A second invitation arrives.","So we keep meeting like this.","This time, the invitation was waiting for two names."]],
+  ['Maid of honor','Peonies','Seating chart','Second invitation','Garden rain','Two names']],
+ ['lastbus','The Last Bus to Jangsan','thriller',76,'Line 49 leaves at 1:12 a.m. Some passengers never get off.',
+  [["Line 49. Last stop, Jangsan. 1:12 a.m.","Driver, are we the only ones on this bus?","The driver’s seat was empty."],["The bus never stops. The stops just change.","Don’t look at the window. Look at me.","In the reflection, someone sat right behind them."],["Every passenger boarded on the same night, years ago.","How do we get off?","The bell rang. Nobody had pressed it."]],
+  ['1:12 a.m.','The reflection','Next stop','Years ago','The bell','Jangsan']],
+ ['bookkeeper','The Duke’s Tiny Bookkeeper','family',138,'House Valen is quietly going bankrupt. The only one who noticed is five years old.',
+  [["House Valen was bankrupt. Nobody had noticed.","Uncle Steward, these numbers don’t add up.","The duke dropped his tea."],["Small hands. Big ledgers.","Buy wheat now. Sell it in winter.","By spring, the family was richer than the crown."],["Every merchant in the capital wants a meeting.","Appointments are after nap time.","The royal treasurer came to ask for help in person."]],
+  ['Bad numbers','Wheat in winter','Nap time','The treasurer','Allowance','The abacus']],
+ ['uncles','My Seven Overprotective Uncles','family',152,'Seven legendary uncles, one tiny knight-in-training, and absolutely no chill.',
+  [["Seven uncles. One tiny knight-in-training.","It’s a wooden sword. Please stop panicking.","All seven uncles fainted at the first sparring match."],["One uncle trains swords. Another trains patience.","I want to go on a real quest!","Seven uncles packed seven bags."],["The first quest: a lost cat in the royal garden.","Leave it to me!","The cat turned out to be a very small dragon."]],
+  ['Wooden sword','First sparring','Seven bags','The quest','Royal garden','Small dragon']],
+ ['witch','The Archive Witch','rofan',120,'Every spell ever cast is filed somewhere. Only one archivist can still read the cabinets.',
+  [["Cabinet 4,021. Spells of the southern rain.","Filed under weather. Misfiled under grief.","One drawer had been locked from the inside."],["Archivists don’t cast. They read.","Reading it out loud is technically casting.","The lights went out, one aisle at a time."],["A spell no one ever wrote down.","Then who filed it?","The card was signed with the archivist’s own name."]],
+  ['Cabinet 4,021','Lights out','The unsigned card','Southern rain','Misfiled','The reading room']],
+ ['crown','Paper Crown','drama',96,'Cut from a debut lineup the night before the show, a trainee decides to write the agency’s next hit anyway.',
+  [["The lineup was announced at 11 p.m.","Five names. Not mine.","By 3 a.m., the first verse was finished."],["Demo tapes go in the trash. Usually.","Who wrote this? Find out by Monday.","The producer was holding the tape."],["Credit goes to whoever signs first.","This song is mine. I can prove it.","The proof was in the trash, too."]],
+  ['Five names','Demo tape','Credit','Studio B','The chorus','Encore']],
+ ['duchess','The Duchess Won’t Sign','rofan',128,'The divorce papers are ready. The duchess has other plans.'],
+ ['spring','Our Contract Ends in Spring','rofan',104,'A one-season marriage to save two houses. Spring is coming too fast.'],
+ ['curses','The Lady Who Sells Curses','rofan',116,'The capital’s most polite noble runs a curse shop after dark. Customers must say please.'],
+ ['propose','Don’t Propose, Your Highness','rofan',96,'Ninety-nine proposals. Ninety-nine rejections. The prince is not discouraged.'],
+ ['marquess','The Marquess’s Secretary Knows Too Much','rofan',134,'A secretary who reads every letter in the house knows exactly who is lying.'],
+ ['empress','Seven Days as the Empress','rofan',112,'Crowned on Monday, set to be executed on Sunday. Seven days to rewrite history.'],
+ ['accountant','The Palace Accountant Wants a Raise','rofan',108,'The empire runs on gold. The gold runs through one very underpaid accountant.'],
+ ['hireme','Hire Me, Grand Duke','rofan',122,'The northern castle needs a housekeeper. The applicant is the princess who vanished.'],
+ ['healer','The F-Rank Healer Refuses to Die','action',188,'The weakest healer in the guild has exactly one skill: refusing to stay dead.'],
+ ['regressor','The Regressor’s Last Dungeon','action',164,'Ninety-nine resets. One dungeon left. This time, no one gets left behind.'],
+ ['ninth','Blade of the Ninth Disciple','action',172,'Eight disciples inherited the master’s arts. The ninth inherited only a rusty blade.'],
+ ['lostfound','The Dungeon Has a Lost and Found','action',150,'Hunters lose things in dungeons. Someone has to give them back.'],
+ ['gate4am','The Gate Opens at 4 A.M.','action',142,'Every night at 4 a.m., a gate opens in one apartment’s kitchen.'],
+ ['swordsaint','The Sword Saint’s Day Off','action',130,'The strongest swordmaster alive just wants one quiet day of fishing.'],
+ ['dragonjob','A Dragon Applied for the Job','action',116,'The posting said no experience needed. The dragon took that literally.'],
+ ['overtime','Overtime With My Rival','drama',94,'Two rivals, one deadline, and an office that locks at midnight.'],
+ ['transfer','The Transfer Student Sits Alone','drama',86,'The new student sits alone on purpose. The class president wants to know why.'],
+ ['wedding20','20 Minutes Before the Wedding','drama',72,'Twenty minutes before the ceremony, an old friend knocks on the door.'],
+ ['blinddate','Cancel the Blind Date','drama',84,'Two people try to cancel the same blind date and end up meeting anyway.'],
+ ['planner','My Ex’s Wedding Planner','drama',92,'The client is famous, the budget is huge, and the groom is the planner’s ex.'],
+ ['rule7','House Rule No. 7','bl',98,'Rule seven of the shared house: no dating housemates. Rule seven is under pressure.'],
+ ['sunbae','That’s My Seat, Sunbae','bl',86,'One library seat, one stubborn senior, and a semester-long standoff.'],
+ ['pitcher','The Pitcher’s Interpreter','bl',110,'A star pitcher signs with a Seoul team. The interpreter is the only one who hears everything.'],
+ ['umbrella','Same Umbrella','gl',68,'Every rainy day, the same stranger shares the same umbrella at the same bus stop.'],
+ ['setpoint','Last Set Point','sports',140,'A volleyball team down to six players, and one final season to prove everyone wrong.'],
+ ['bench','Bench Warmer, Season 3','sports',132,'Two seasons on the bench. Season three starts with an injury in the first minute.'],
+ ['orbital','Orbital Night Market','sf',102,'Above the clouds, a night market orbits the Earth. Anything is for sale, except a ticket home.'],
+ ['busanport','The Last Signal From Busan Port','sf',96,'The last ship left Busan in 2091. Tonight, it is calling back.'],
+ ['inspector','The Royal Inspector’s Notebook','hist',116,'A notebook that names every corrupt official in Joseon has gone missing.'],
+ ['rumor','Hanyang Rumor Office','hist',104,'In old Hanyang, rumors are sold by the word. The truth costs extra.'],
+ ['apt1204','Apartment 1204 Has No Floor Plan','thriller',84,'The building has no floor plan for unit 1204. Someone still pays the rent every month.'],
+ ['missing37','Missing Person #37','thriller',92,'Thirty-six missing people were found. Number 37 keeps sending postcards.'],
+ ['password','The Neighbor Knows My Password','thriller',80,'A note under the door says: change your password. It is signed by the neighbor.'],
+ ['desk','Class 3-7 Is One Desk Short','thriller',78,'Thirty-one students, thirty-two desks. Every morning, the extra desk moves closer.'],
+ ['rider','The Delivery Rider Saw Everything','thriller',88,'A late-night rider sees something on the fourteenth floor and becomes the only witness.'],
+ ['catstore','My Cat Runs a Convenience Store','comedy',130,'The night manager of a 24-hour store is a very serious orange cat.'],
+ ['grandma','Grandma’s Gym','comedy',68,'A seventy-year-old opens a gym. The bodybuilders are terrified.'],
+ ['ghostrent','The Ghost Pays Half the Rent','comedy',102,'The apartment is cheap because it is haunted. The ghost insists on splitting the rent.']
+];
+const FEATURED = ['saintess','hunter','tensteps','moonlit','necro','bookkeeper','lastbus','divorce','chorus','iron','uncles','cafe','bouquets','murim'];
+const gCount = {};
+const TITLES = RAW.map(([id,title,g,eps,hook,s,eplist]) => {
+  const n = gCount[g] = (gCount[g] || 0) + 1;
+  return {id,title,g,eps,hook,s,eplist,c:PAL[g][(n-1) % PAL[g].length],seed:n % 4,img:IMGS[id]};
+});
+const FREE = 3;
+let genre = 'all';
+const byId = id => TITLES.find(t => t.id === id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const LOCK = '<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><rect x="2" y="5" width="8" height="6" rx="1.5" fill="currentColor"/><path d="M4 5V3.6a2 2 0 0 1 4 0V5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>';
+const rnd = n => { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+
+/* ---------- generated cover art for series without AI art ---------- */
+const FIG = (x, y, s, fill, op=1) => `<g transform="translate(${x} ${y}) scale(${s})" fill="${fill}" opacity="${op}"><circle cx="0" cy="-62" r="13"/><path d="M-22 0 Q-20 -36 -10 -46 Q0 -52 10 -46 Q20 -36 22 0Z"/></g>`;
+const CASTLE = op => `<path d="M0 300 V250 H30 V215 L45 195 L60 215 V250 H110 V200 L130 170 L150 200 V250 H200 V225 L215 205 L230 225 V250 H300 V300Z" fill="#000" opacity="${op}"/>`;
+const SCENE = {
+  rofan:(u,a,b,s)=>`<rect width="300" height="400" fill="${a}"/><rect width="300" height="400" fill="#000" opacity=".2"/>
+    <circle cx="${180+s*14}" cy="112" r="80" fill="${b}" opacity=".35" filter="url(#${u}g)"/><circle cx="${180+s*14}" cy="112" r="48" fill="${b}"/>
+    ${CASTLE(.5)}<rect y="300" width="300" height="100" fill="#000" opacity=".5"/>
+    <g fill="#000" opacity=".85"><circle cx="${84+s*12}" cy="258" r="14"/><path d="M${84+s*12} 272 L${54+s*12} 360 H${114+s*12}Z"/></g>
+    ${[0,1,2,3,4,5].map(i=>`<ellipse cx="${(rnd(i+s*7)*280+10).toFixed(0)}" cy="${(rnd(i*3+s)*260+20).toFixed(0)}" rx="6" ry="3" fill="${b}" transform="rotate(${(rnd(i*5)*90).toFixed(0)} 150 150)" opacity=".8"/>`).join('')}`,
+  action:(u,a,b,s)=>`<rect width="300" height="400" fill="#05070A"/><rect width="300" height="400" fill="${a}" opacity=".85"/>
+    <path d="M0 290 L60 220 L100 260 L160 170 L210 240 L250 200 L300 250 V400 H0Z" fill="#000" opacity=".55"/>
+    <path d="M-10 ${300-s*22} L310 ${80+s*16}" stroke="${b}" stroke-width="10" opacity=".55" filter="url(#${u}g)"/>
+    <path d="M-10 ${300-s*22} L310 ${80+s*16}" stroke="#fff" stroke-width="2"/>
+    ${FIG(150,340,1.1,'#000')}<path d="M165 286 L212 226" stroke="${b}" stroke-width="5" stroke-linecap="round"/>`,
+  drama:(u,a,b,s)=>`<rect width="300" height="400" fill="${a}"/><circle cx="${220-s*30}" cy="90" r="44" fill="${b}" opacity=".55" filter="url(#${u}g)"/>
+    ${Array.from({length:10},(_,i)=>{const h=80+Math.floor(rnd(i+s*11)*100),x=i*31;return `<rect x="${x}" y="${300-h}" width="28" height="${h+100}" fill="#000" opacity=".45"/>`+Array.from({length:4},(_,j)=>`<rect x="${x+6+(j%2)*10}" y="${310-h+Math.floor(j/2)*18}" width="5" height="7" fill="${b}" opacity="${rnd(i*j+s)>.4?.7:.15}"/>`).join('')}).join('')}
+    ${FIG(124,350,1,'#000',.85)}${FIG(182,350,.95,'#000',.7)}`,
+  bl:(u,a,b,s)=>`<rect width="300" height="400" fill="${a}"/><circle cx="150" cy="170" r="120" fill="${b}" opacity=".3" filter="url(#${u}g)"/>
+    <g fill="#000" opacity=".78"><circle cx="122" cy="200" r="30"/><path d="M66 340 Q72 252 122 240 Q172 252 178 340Z"/></g>
+    <g fill="#000" opacity=".5"><circle cx="184" cy="188" r="30"/><path d="M128 340 Q134 240 184 228 Q234 240 240 340Z"/></g>`,
+  gl:(u,a,b,s)=>`<rect width="300" height="400" fill="${a}"/>
+    ${Array.from({length:18},(_,i)=>`<circle cx="${(rnd(i+s)*300).toFixed(0)}" cy="${(rnd(i*7+s)*300).toFixed(0)}" r="${(6+rnd(i*3)*10).toFixed(0)}" fill="${b}" opacity=".55"/>`).join('')}
+    <g fill="#000" opacity=".7"><ellipse cx="118" cy="214" rx="30" ry="40"/><path d="M78 360 Q86 262 118 252 Q150 262 158 360Z"/></g>
+    <g fill="#000" opacity=".5"><ellipse cx="184" cy="214" rx="30" ry="40"/><path d="M144 360 Q152 262 184 252 Q216 262 224 360Z"/></g>`,
+  family:(u,a,b,s)=>`<rect width="300" height="400" fill="${a}"/><circle cx="210" cy="100" r="60" fill="${b}" opacity=".45" filter="url(#${u}g)"/>${CASTLE(.45)}
+    <rect y="300" width="300" height="100" fill="#000" opacity=".45"/>${FIG(118,350,1.1,'#000',.8)}${FIG(186,350,.55,'#000',.9)}
+    ${[0,1,2,3].map(i=>`<path d="M${60+i*55} ${70+rnd(i)*60} l4 10 l10 4 l-10 4 l-4 10 l-4 -10 l-10 -4 l10 -4z" fill="${b}"/>`).join('')}`,
+  hist:(u,a,b,s)=>`<rect width="300" height="400" fill="${a}"/><circle cx="${210-s*20}" cy="100" r="46" fill="${b}"/>
+    <path d="M0 240 Q60 230 90 205 L210 205 Q240 230 300 236 V400 H0Z" fill="#000" opacity=".6"/><path d="M84 205 H216" stroke="${b}" stroke-width="3" opacity=".6"/>
+    ${FIG(92,350,.9,'#000',.9)}<ellipse cx="92" cy="282" rx="28" ry="5" fill="#000"/><rect x="82" y="262" width="20" height="20" rx="3" fill="#000"/>`,
+  thriller:(u,a,b,s)=>`<rect width="300" height="400" fill="${a}"/><path d="M0 0 L110 150 L110 300 L0 400Z" fill="#000" opacity=".45"/><path d="M300 0 L190 150 L190 300 L300 400Z" fill="#000" opacity=".45"/>
+    <g stroke="${b}" opacity=".18">${[0,1,2,3,4].map(i=>`<line x1="0" y1="${i*80}" x2="110" y2="${150+i*30}"/><line x1="300" y1="${i*80}" x2="190" y2="${150+i*30}"/>`).join('')}</g>
+    <rect x="122" y="166" width="56" height="118" fill="${b}" opacity=".8" filter="url(#${u}g)"/><rect x="126" y="170" width="48" height="110" fill="${b}"/>
+    ${FIG(150,304,.5,'#000')}`,
+  comedy:(u,a,b,s)=>`<rect width="300" height="400" fill="${a}"/>
+    <g stroke="${b}" stroke-width="12" opacity=".3">${Array.from({length:18},(_,i)=>{const t=i/18*Math.PI*2;return `<line x1="150" y1="170" x2="${(150+Math.cos(t)*320).toFixed(0)}" y2="${(170+Math.sin(t)*320).toFixed(0)}"/>`}).join('')}</g>
+    <circle cx="150" cy="170" r="92" fill="${b}"/><circle cx="150" cy="160" r="40" fill="#1B1D2A"/>
+    <circle cx="136" cy="154" r="9" fill="#fff"/><circle cx="164" cy="154" r="9" fill="#fff"/><circle cx="${138+s}" cy="156" r="4" fill="#1B1D2A"/><circle cx="${166+s}" cy="156" r="4" fill="#1B1D2A"/>
+    <path d="M140 174 Q150 184 160 174" stroke="#fff" stroke-width="3" fill="none"/><path d="M104 300 Q110 214 150 204 Q190 214 196 300Z" fill="#1B1D2A"/>`,
+  sports:(u,a,b,s)=>`<rect width="300" height="400" fill="${a}"/><g stroke="${b}" stroke-width="3" fill="none" opacity=".35"><rect x="20" y="40" width="260" height="320"/><line x1="20" y1="200" x2="280" y2="200"/><circle cx="150" cy="200" r="44"/></g>
+    <circle cx="206" cy="104" r="28" fill="${b}"/><path d="M182 96 Q206 112 230 96 M190 126 Q206 104 222 126" stroke="${a}" stroke-width="3" fill="none"/>
+    ${FIG(130,330,1.15,'#000',.85)}<path d="M120 268 L104 214 M142 268 L170 210" stroke="#000" stroke-width="9" stroke-linecap="round" opacity=".85"/>`,
+  sf:(u,a,b,s)=>`<rect width="300" height="400" fill="${a}"/>${Array.from({length:40},(_,i)=>`<circle cx="${(rnd(i+s*3)*300).toFixed(0)}" cy="${(rnd(i*9+s)*400).toFixed(0)}" r="${rnd(i*2)>.8?1.8:1}" fill="#fff" opacity=".8"/>`).join('')}
+    <circle cx="170" cy="160" r="78" fill="${b}" opacity=".4" filter="url(#${u}g)"/><circle cx="170" cy="160" r="66" fill="${b}"/><circle cx="196" cy="140" r="66" fill="${a}" opacity=".45"/>
+    <ellipse cx="170" cy="160" rx="118" ry="20" fill="none" stroke="${b}" stroke-width="4" transform="rotate(-14 170 160)"/>
+    <path d="M60 300 L84 290 L60 280 L66 290Z" fill="#fff"/><path d="M60 290 H20" stroke="${b}" stroke-width="2" opacity=".7"/>`
+};
+// hand-made scenes kept for two titles
+SCENE.witch = (u,a,b)=>`<rect width="300" height="400" fill="#1F0A1B"/><rect width="300" height="400" fill="#5A2350" opacity=".6"/>
+  <path d="M0 0 L84 70 L84 330 L0 400Z" fill="#24091F"/><path d="M300 0 L216 70 L216 330 L300 400Z" fill="#24091F"/>
+  <circle cx="150" cy="168" r="58" fill="#FFB86B" opacity=".6" filter="url(#${u}g)"/><circle cx="150" cy="168" r="20" fill="#FFE7C2"/>
+  ${[[96,110,-18],[200,104,14],[112,214,22],[196,226,-10],[150,86,4],[78,170,-30],[226,168,26]].map(([x,y,r],i)=>`<g transform="rotate(${r} ${x} ${y})"><rect x="${x-11}" y="${y-15}" width="22" height="30" rx="2" fill="#FFF1DC" opacity="${.95-i*.08}"/></g>`).join('')}
+  <path d="M100 400 Q104 318 124 282 Q138 250 150 236 Q162 250 176 282 Q196 318 200 400Z" fill="#0D020B"/>`;
+SCENE.crown = (u,a,b)=>`<rect width="300" height="400" fill="#08140E"/><rect width="300" height="400" fill="#1E3A2B" opacity=".7"/>
+  <path d="M128 -10 L172 -10 L268 350 L32 350Z" fill="#E6F28A" opacity=".18"/><ellipse cx="150" cy="348" rx="122" ry="18" fill="#E6F28A" opacity=".3"/>
+  <g transform="translate(0 44)"><path d="M108 142 L118 98 L136 124 L150 88 L164 124 L182 98 L192 142Z" fill="#E6F28A" opacity=".6" filter="url(#${u}g)"/>
+  <path d="M108 142 L118 98 L136 124 L150 88 L164 124 L182 98 L192 142Z" fill="#FFFEF2" stroke="#1E3A2B" stroke-width="2.5"/></g>
+  ${FIG(150,322,1,'#0B1A12')}<path d="M136 286 L120 196 M164 286 L180 196" stroke="#0B1A12" stroke-width="11" stroke-linecap="round"/>`;
+
+function wrapTitle(s){
+  const words = s.toUpperCase().split(' '), lines = [];
+  let cur = '';
+  for (const w of words){
+    if ((cur + ' ' + w).trim().length > 13 && cur){ lines.push(cur); cur = w; } else cur = (cur + ' ' + w).trim();
+  }
+  if (cur) lines.push(cur);
+  return lines;
+}
+let cvn = 0;
+function cover(t){
+  const u = 'c' + (cvn++);
+  const lines = wrapTitle(t.title);
+  const longest = Math.max(...lines.map(l => l.length));
+  const fs = Math.min(46, Math.floor(270 / (longest * 0.66)));
+  const base = 402;
+  const ln = (l, i, paint) => `<text x="16" y="${(base - (lines.length - 1 - i) * fs * 0.98).toFixed(1)}" font-family="Black Han Sans,IBM Plex Sans KR,sans-serif" font-size="${fs}" ${paint}>${esc(l)}</text>`;
+  const title = lines.map((l,i) => ln(l, i, `fill="#000" stroke="#000" stroke-width="${Math.max(5, fs/7).toFixed(1)}" stroke-linejoin="round"`)).join('') + lines.map((l,i) => ln(l, i, `fill="${t.img ? '#FFFFFF' : t.c[1]}"`)).join('');
+  const sceneFn = SCENE[t.id] || SCENE[t.g];
+  const art = t.img
+    ? `<img src="${t.img}" alt="" loading="lazy" decoding="async">`
+    : `<svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><filter id="${u}g" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="9"/></filter></defs>${sceneFn(u, t.c[0], t.c[1], t.seed)}</svg>`;
+  return `<div class="cover">${art}<svg viewBox="0 0 300 450" role="img" aria-label="${esc(t.title)} cover">
+    <defs><linearGradient id="${u}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".82"/></linearGradient>
+    <pattern id="${u}d" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.1" fill="#fff" opacity=".14"/></pattern></defs>
+    <rect y="230" width="300" height="220" fill="url(#${u}s)"/><rect y="320" width="300" height="130" fill="url(#${u}d)"/>
+    <rect x="14" y="14" width="86" height="22" rx="4" fill="#FFE14D" stroke="#000" stroke-width="2"/>
+    <text x="57" y="29.5" text-anchor="middle" font-family="IBM Plex Sans KR,sans-serif" font-weight="700" font-size="11" fill="#1B1D2A">COMPLETED</text>
+    ${title}
+    <text x="17" y="430" font-family="IBM Plex Sans KR,sans-serif" font-weight="600" font-size="12" letter-spacing="1.5" fill="#fff" opacity=".85">${t.eps} EPISODES</text>
+  </svg></div>`;
+}
+
+/* ---------- views ---------- */
+const VIEWS = ['home','title','read'];
+const show = v => VIEWS.forEach(n => document.getElementById('v-'+n).hidden = n !== v);
+const card = t => `<button class="card" type="button" data-go="t-${t.id}">${cover(t)}<b>${esc(t.title)}</b><span>${esc(GENRES[t.g])}, ${t.eps} episodes</span></button>`;
+
+function renderHome(){
+  document.getElementById('stack').innerHTML = ['saintess','hunter','tensteps'].map(id => cover(byId(id))).join('');
+  document.getElementById('top').innerHTML = FEATURED.map((id,i) => { const t = byId(id); return `
+    <button class="card" type="button" data-go="t-${t.id}">${cover(t)}<div class="rank"><em>${i+1}</em><b>${esc(t.title)}</b></div><span>${esc(GENRES[t.g])}</span></button>`; }).join('');
+  const keys = ['all', ...Object.keys(GENRES)];
+  document.getElementById('chips').innerHTML = keys.map(k => `<button type="button" data-genre="${k}" aria-pressed="${k===genre}">${k==='all'?'All':esc(GENRES[k])}</button>`).join('');
+  const list = TITLES.filter(t => genre === 'all' || t.g === genre);
+  document.getElementById('count').textContent = `${list.length} of ${TITLES.length} series`;
+  document.getElementById('grid').innerHTML = list.map(card).join('');
+}
+
+function renderTitle(t){
+  const rows = Array.from({length:6}, (_,i) => {
+    const n = i+1, free = n <= FREE, nm = (t.eplist && t.eplist[i]) || `Episode ${n}`;
+    return `<button class="ep${free?'':' locked'}" type="button" ${free?`data-go="r-${t.id}-${n}"`:'data-sub'}>
+      <span class="no">Ep.${n}</span><span class="nm">${esc(nm)}</span>${free?'<span class="free">Free</span>':`<span class="lk">${LOCK} Subscribers</span>`}</button>`;
+  }).join('');
+  document.getElementById('tp').innerHTML = `
+    <div>${cover(t)}</div>
+    <div>
+      <h1 class="display">${esc(t.title)}</h1>
+      <p class="meta">${esc(GENRES[t.g])}. Completed, ${t.eps} episodes.</p>
+      <p class="hook">${esc(t.hook)}</p>
+      <button class="btn brand" type="button" data-go="r-${t.id}-1">Read Ep.1 free</button>
+      <div class="eps">${rows}<div class="more">${t.eps - 6} more episodes to the finale</div></div>
+      <button class="back" type="button" data-go="home">Back to all series</button>
+    </div>`;
+}
+
+/* ---------- panels ---------- */
+function art(kind, c1, c2, seed){
+  const W = 600, H = kind === 'wide' ? 420 : kind === 'cliff' ? 520 : 460;
+  let g = '';
+  if (kind === 'wide'){
+    g = `<rect width="${W}" height="${H}" fill="${c1}"/><circle cx="${430 - seed*20}" cy="120" r="64" fill="${c2}"/>
+      <path d="M0 ${H-110} Q150 ${H-170} 300 ${H-120} T600 ${H-140} V${H} H0Z" fill="${c2}" opacity=".28"/>
+      <path d="M0 ${H-60} Q200 ${H-110} 380 ${H-70} T600 ${H-80} V${H} H0Z" fill="#000" opacity=".35"/>
+      <g fill="#000" opacity=".75"><circle cx="${170+seed*30}" cy="${H-138}" r="13"/><rect x="${156+seed*30}" y="${H-124}" width="28" height="56" rx="12"/></g>`;
+  } else if (kind === 'two'){
+    g = `<rect width="${W}" height="${H}" fill="${c2}"/><rect y="${H-120}" width="${W}" height="120" fill="${c1}" opacity=".18"/>
+      <g fill="${c1}"><circle cx="170" cy="250" r="44"/><rect x="118" y="292" width="104" height="${H-292}" rx="44"/></g>
+      <g fill="${c1}" opacity=".7"><circle cx="440" cy="270" r="40"/><rect x="392" y="308" width="96" height="${H-308}" rx="40"/></g>`;
+  } else if (kind === 'close'){
+    g = `<rect width="${W}" height="${H}" fill="${c1}"/>
+      <g stroke="${c2}" stroke-width="2" opacity=".35">${Array.from({length:14},(_,i)=>`<line x1="0" y1="${i*36}" x2="${W}" y2="${i*36-60}"/>`).join('')}</g>
+      <circle cx="300" cy="${H/2+40}" r="190" fill="${c2}"/>
+      <ellipse cx="236" cy="${H/2+10}" rx="30" ry="${18+seed*4}" fill="#fff" stroke="#1B1D2A" stroke-width="4"/>
+      <ellipse cx="364" cy="${H/2+10}" rx="30" ry="${18+seed*4}" fill="#fff" stroke="#1B1D2A" stroke-width="4"/>
+      <circle cx="${240+seed*4}" cy="${H/2+12}" r="10" fill="#1B1D2A"/><circle cx="${368+seed*4}" cy="${H/2+12}" r="10" fill="#1B1D2A"/>`;
+  } else {
+    const rays = Array.from({length:36},(_,i)=>{const a=i/36*Math.PI*2; return `<line x1="${300+Math.cos(a)*90}" y1="${200+Math.sin(a)*90}" x2="${300+Math.cos(a)*520}" y2="${200+Math.sin(a)*520}"/>`;}).join('');
+    g = `<rect width="${W}" height="${H}" fill="#0E0F16"/><g stroke="${c2}" stroke-width="${2+seed}" opacity=".55">${rays}</g>
+      <circle cx="300" cy="200" r="70" fill="${c1}" stroke="${c2}" stroke-width="4"/>`;
+  }
+  return `<svg viewBox="0 0 ${W} ${H}" role="presentation">${g}</svg>`;
+}
+// crops of the AI cover used as panels: [aspect, background-size, background-position, darken]
+const CROPS = { wide:['600/430','cover','50% 18%',false], two:['600/480','165%','50% 30%',false], close:['600/440','270%','46% 20%',false], cliff:['600/520','125%','50% 55%',true] };
+function ipanel(t, kind, inner){
+  const [ar, size, pos, dark] = CROPS[kind];
+  return `<figure class="panel ipanel${dark?' dark':''}" style="aspect-ratio:${ar};background-image:url('${t.img}');background-size:${size};background-position:${pos}">${inner}</figure>`;
+}
+function script(t, n){
+  if (t.s) return t.s[n-1];
+  const parts = t.hook.split(/(?<=\.)\s+/);
+  return [[parts[0], 'So this is where it starts.', parts[1] || 'Nothing would be the same again.'],
+          ['The next morning.', 'We can’t go back now.', 'Then the door opened.'],
+          ['Three days later.', 'Whatever happens, stay close.', 'Ep.4 changes everything.']][n-1];
+}
+function renderRead(t, n){
+  const [cap, line, cliff] = script(t, n), seed = n - 1;
+  document.getElementById('rTitle').textContent = t.title;
+  document.getElementById('rEp').textContent = `Ep.${n}`;
+  const P = (kind, inner) => t.img ? ipanel(t, kind, inner) : `<figure class="panel">${art(kind, t.c[0], t.c[1], seed)}${inner}</figure>`;
+  document.getElementById('strip').innerHTML =
+    P('wide', `<div class="cap">${esc(cap)}</div>`) +
+    P('two', `<div class="say">${esc(line)}</div>`) +
+    P('close', '') +
+    P('cliff', `<div class="cliff">${esc(cliff)}</div>`);
+  const after = document.getElementById('after');
+  if (n < FREE){
+    const nm = (t.eplist && t.eplist[n]) || `Episode ${n+1}`;
+    after.innerHTML = `<div class="next"><span class="lbl">Up next: Ep.${n+1}, ${esc(nm)}</span>
+      <button class="btn brand" type="button" data-go="r-${t.id}-${n+1}">Read Ep.${n+1} free</button></div>`;
+  } else {
+    after.innerHTML = `<div class="wall"><div class="box">
+      <h2 class="display">That’s the free part.</h2>
+      <p>${t.eps - FREE} more episodes of ${esc(t.title)} are waiting, all the way to the finale.</p>
+      <div class="plan"><b class="display">$4.99</b><span>per month, every completed series</span></div>
+      <ul><li>Read all ${t.eps} episodes today</li><li>All ${TITLES.length} series on Hururuk included</li><li>Cancel anytime</li></ul>
+      <button class="btn brand" type="button" data-sub>Subscribe for $4.99 a month</button>
+    </div></div>`;
+  }
+  updateProg();
+}
+function updateProg(){
+  if (document.getElementById('v-read').hidden) return;
+  const r = document.getElementById('strip').getBoundingClientRect(), vh = innerHeight;
+  const p = Math.min(1, Math.max(0, (vh - r.top) / (r.height + vh * .2)));
+  document.getElementById('prog').style.width = (p*100).toFixed(1) + '%';
+  if (p >= .95 && !finished) { finished = true; const mm = /^r-([a-z0-9]+)-(\d)$/.exec(current); if (mm) track('episode_finish', {title: mm[1], ep: +mm[2]}); }
+}
+addEventListener('scroll', updateProg, {passive:true});
+
+/* ---------- routing ---------- */
+let current = 'home';
+function go(token, push=true){
+  let m;
+  if ((m = /^t-([a-z0-9]+)$/.exec(token)) && byId(m[1])){
+    if (!landed) { landed = true; track('landing_view', {source: trafficSource()}); }
+    renderTitle(byId(m[1])); show('title'); current = token; track('title_view', {title: m[1]});
+  } else if ((m = /^r-([a-z0-9]+)-(\d)$/.exec(token)) && byId(m[1]) && +m[2] >= 1 && +m[2] <= FREE){
+    const t = byId(m[1]);
+    document.getElementById('toTitle').dataset.go = 't-' + t.id;
+    if (!landed) { landed = true; track('landing_view', {source: trafficSource()}); }
+    finished = false; renderRead(t, +m[2]); show('read'); current = token; track('episode_open', {title: t.id, ep: +m[2]});
+  } else {
+    renderHome(); show('home'); current = 'home';
+  }
+  if (!landed) { landed = true; track('landing_view', {source: trafficSource()}); }
+  if (push){ try { history.replaceState(null, '', '#' + current); } catch(e) {} }
+  window.scrollTo(0, 0);
+  updateProg();
+}
+
+/* ---------- fake door ---------- */
+const dlg = document.getElementById('dlg'), mod = document.getElementById('mod');
+function openSub(){
+  mod.innerHTML = `
+    <h2 class="display" id="dlgH">Hururuk opens soon.</h2>
+    <p>We’re licensing completed series from Korean studios right now. Join the waitlist and your first month is free when we launch. You won’t be charged today.</p>
+    <form id="wl" novalidate>
+      <label class="f">Email<input type="email" id="em" autocomplete="email" placeholder="you@example.com"></label>
+      <p hidden><label>Leave this empty <input name="bot-field" id="hp" tabindex="-1" autocomplete="off"></label></p>
+      <label class="opt"><input type="checkbox" id="agree"><span>Email me once when Hururuk launches. I’ve read the <a href="/privacy.html" target="_blank" rel="noopener">privacy notice</a>.</span></label>
+      <p class="err" id="wlErr" role="alert"></p>
+      <div class="row"><button class="btn ghost" type="button" data-close>Not now</button><button class="btn brand" type="submit">Join the waitlist</button></div>
+    </form>`;
+  dlg.showModal();
+  setTimeout(() => { const e = document.getElementById('em'); if (e) e.focus(); }, 30);
+}
+dlg.addEventListener('submit', async e => {
+  e.preventDefault();
+  const em = document.getElementById('em').value.trim(), err = document.getElementById('wlErr');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ err.textContent = 'Enter an email address like you@example.com.'; return; }
+  if (!document.getElementById('agree').checked){ err.textContent = 'Check the box so we can email you at launch.'; return; }
+  const btn = e.target.querySelector('[type=submit]');
+  btn.disabled = true; btn.textContent = 'Joining…'; err.textContent = '';
+  try {
+    const r = await fetch('/api/waitlist', {method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email: em, consent: true, source_title: subSource, bot: document.getElementById('hp').value})});
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    track('waitlist_join', {title: subSource});
+    mod.innerHTML = `<div class="ok-mark" aria-hidden="true">✓</div><h2 class="display" id="dlgH">You’re on the list.</h2>
+      <p>We’ll email you once, on launch day, with your free first month.</p>
+      <div class="row"><button class="btn" type="button" data-close>Keep browsing</button></div>`;
+  } catch (_) {
+    btn.disabled = false; btn.textContent = 'Join the waitlist';
+    err.textContent = 'Something went wrong. Please try again in a moment.';
+  }
+});
+dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-go],[data-sub],[data-genre],[data-scroll],[data-close]');
+  if (!b) return;
+  if (b.hasAttribute('data-close')) { dlg.close(); return; }
+  if (b.hasAttribute('data-sub')) { const mm = /^[tr]-([a-z0-9]+)/.exec(current); subSource = mm ? mm[1] : ''; track('subscribe_click', {title: subSource, page: current.split('-')[0]}); openSub(); return; }
+  if (b.dataset.genre) { genre = b.dataset.genre; renderHome(); return; }
+  if (b.dataset.scroll) { document.getElementById(b.dataset.scroll).scrollIntoView({behavior:'smooth'}); return; }
+  if (b.dataset.go) go(b.dataset.go);
+});
+
+go((location.hash || '').slice(1), false);
+</script>
+</body>
+</html>
