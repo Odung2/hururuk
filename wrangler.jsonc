@@ -1,0 +1,19 @@
+{
+  // Cloudflare Worker config. The Worker name must match the project name in the dashboard.
+  "name": "hururuk",
+  "main": "src/index.js",
+  "compatibility_date": "2026-06-01",
+  // Static site: files in public/ are served directly. Requests with no matching file (like /api/*) go to src/index.js.
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "hururuk",
+      "database_id": "b39bd3f5-e413-488d-a464-baeb4a575306"
+    }
+  ],
+  "observability": { "enabled": true }
+}
