@@ -14,17 +14,16 @@ export async function onRequestGet({ request, env }) {
   const funnel = await env.DB.prepare(`SELECT
       COUNT(DISTINCT CASE WHEN name = 'landing_view' THEN session END) AS visited,
       COUNT(DISTINCT CASE WHEN name = 'title_view' THEN session END) AS title_page,
-      COUNT(DISTINCT CASE WHEN name = 'episode_open' AND ep = 1 THEN session END) AS ep1_opened,
-      COUNT(DISTINCT CASE WHEN name = 'episode_finish' AND ep = 3 THEN session END) AS ep3_finished,
+      COUNT(DISTINCT CASE WHEN name = 'episode_open' THEN session END) AS read_clicked,
       COUNT(DISTINCT CASE WHEN name = 'subscribe_click' THEN session END) AS subscribe_clicked,
       COUNT(DISTINCT CASE WHEN name = 'waitlist_join' THEN session END) AS joined
     FROM events WHERE ts >= ?1`).bind(since).first();
 
   const titles = await env.DB.prepare(`SELECT title,
       COUNT(DISTINCT CASE WHEN name = 'title_view' THEN session END) AS title_views,
-      COUNT(DISTINCT CASE WHEN name = 'episode_open' AND ep = 1 THEN session END) AS ep1_opens,
-      COUNT(DISTINCT CASE WHEN name = 'episode_finish' AND ep = 3 THEN session END) AS ep3_finishes,
-      COUNT(DISTINCT CASE WHEN name = 'subscribe_click' THEN session END) AS subscribe_clicks
+      COUNT(DISTINCT CASE WHEN name = 'episode_open' THEN session END) AS read_clicks,
+      COUNT(DISTINCT CASE WHEN name = 'subscribe_click' THEN session END) AS subscribe_clicks,
+      COUNT(DISTINCT CASE WHEN name = 'waitlist_join' THEN session END) AS joins
     FROM events WHERE ts >= ?1 AND title IS NOT NULL
     GROUP BY title ORDER BY title_views DESC LIMIT 60`).bind(since).all();
 
@@ -46,5 +45,16 @@ export async function onRequestGet({ request, env }) {
 
   const waitlist = await env.DB.prepare('SELECT COUNT(*) AS total FROM waitlist').first();
 
-  return json({ ok: true, days, funnel, titles: titles.results, sources: sources.results, daily: daily.results, waitlist_total: waitlist.total });
+  // Genre answers across the whole waitlist (the question is optional).
+  const genreAnswered = await env.DB.prepare('SELECT COUNT(*) AS n FROM waitlist WHERE genres IS NOT NULL').first();
+  const genres = await env.DB.prepare(`SELECT g.value AS genre, COUNT(*) AS picks
+    FROM waitlist w, json_each(w.genres) g WHERE w.genres IS NOT NULL
+    GROUP BY g.value ORDER BY picks DESC`).all();
+
+  // Free-text ideas, newest first. Emails are left out on purpose.
+  const comments = await env.DB.prepare(`SELECT joined_at, source_title, comment FROM waitlist
+    WHERE comment IS NOT NULL ORDER BY joined_at DESC LIMIT 100`).all();
+
+  return json({ ok: true, days, funnel, titles: titles.results, sources: sources.results, daily: daily.results,
+    waitlist_total: waitlist.total, genre_answered: genreAnswered.n, genres: genres.results, comments: comments.results });
 }

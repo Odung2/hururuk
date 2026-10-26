@@ -1,5 +1,5 @@
-// POST /api/waitlist  { email, consent: true, source_title, bot }
-import { ensureSchema, json } from '../../lib/db.js';
+// POST /api/waitlist  { email, consent: true, source_title, genres?, comment?, bot }
+import { ensureSchema, json, GENRE_KEYS } from '../../lib/db.js';
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -15,9 +15,14 @@ export async function onRequestPost({ request, env }) {
   if (data.consent !== true) return json({ ok: false, error: 'consent_required' }, 400);
   if (!env.DB) return json({ ok: false, error: 'storage_not_configured' }, 500);
 
+  // Optional answers: unknown genres are dropped, an empty answer is stored as NULL.
+  const genres = Array.isArray(data.genres) ? GENRE_KEYS.filter(g => data.genres.includes(g)) : [];
+  const comment = String(data.comment || '').trim().slice(0, 500);
+
   await ensureSchema(env.DB);
-  await env.DB.prepare('INSERT OR IGNORE INTO waitlist (email, source_title, consent, joined_at) VALUES (?1, ?2, 1, ?3)')
-    .bind(email, String(data.source_title || '').slice(0, 40), new Date().toISOString())
+  await env.DB.prepare('INSERT OR IGNORE INTO waitlist (email, source_title, consent, joined_at, genres, comment) VALUES (?1, ?2, 1, ?3, ?4, ?5)')
+    .bind(email, String(data.source_title || '').slice(0, 40), new Date().toISOString(),
+      genres.length ? JSON.stringify(genres) : null, comment || null)
     .run();
   return json({ ok: true });
 }

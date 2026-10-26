@@ -111,35 +111,6 @@ section[hidden]{display:none}
 .back{background:none;border:0;padding:0;color:var(--ink-2);cursor:pointer;font-size:14px;margin-top:22px}
 @media (max-width:720px){.tp{grid-template-columns:1fr;gap:20px;padding-top:20px}.tp .cover{max-width:220px}}
 
-/* reader */
-.rbar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 60px);z-index:8;background:var(--bg);border-bottom:1px solid var(--rule)}
-.rbar .in{max-width:620px;margin:0 auto;padding:8px 16px;display:flex;align-items:center;gap:10px;font-size:14px}
-.rbar .in b{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.prog{height:3px;background:var(--rule)}
-.prog i{display:block;height:100%;width:0;background:var(--brand)}
-.strip{max-width:620px;margin:0 auto;padding:0 0 10px}
-.panel{position:relative;margin:0;border-bottom:14px solid var(--bg);overflow:hidden}
-.panel svg{display:block;width:100%;height:auto}
-.ipanel{background-repeat:no-repeat;background-color:#0E0F16}
-.ipanel.dark::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.75))}
-.cap{position:absolute;left:16px;top:16px;max-width:72%;background:var(--bubble);color:var(--on-bubble);border:2px solid #1B1D2A;padding:8px 12px;font-weight:600;font-size:clamp(14px,3.6vw,17px);line-height:1.35;z-index:1}
-.say{position:absolute;right:18px;top:18px;max-width:62%;background:#FFFFFF;color:#1B1D2A;border:2px solid #1B1D2A;border-radius:22px;padding:10px 16px;font-size:clamp(14px,3.6vw,17px);line-height:1.35;z-index:1}
-.say::after{content:"";position:absolute;left:28px;bottom:-14px;width:18px;height:14px;background:#FFFFFF;border-left:2px solid #1B1D2A;border-bottom:2px solid #1B1D2A;transform:skewX(30deg)}
-.cliff{position:absolute;inset:auto 16px 18px 16px;color:#FFFFFF;font-family:"Black Han Sans","IBM Plex Sans KR",sans-serif;font-size:clamp(20px,5.4vw,28px);line-height:1.2;text-shadow:0 2px 0 #000;z-index:1}
-.next{max-width:620px;margin:0 auto;padding:16px 16px 56px;display:grid;gap:10px;text-align:center}
-.next .lbl{font-size:14px;color:var(--ink-2)}
-
-/* paywall */
-.wall{max-width:620px;margin:0 auto 56px;padding:0 16px}
-.wall .box{border:2px solid var(--line);border-radius:14px;padding:28px 24px;background:var(--soft);text-align:center}
-.wall h2{font-size:30px;line-height:1.1;margin:0 0 10px}
-.wall p{margin:0 auto 18px;max-width:40ch;color:var(--ink-2)}
-.plan{display:inline-grid;gap:2px;border:2px solid var(--ink);border-radius:10px;padding:12px 26px;margin:0 0 18px;background:var(--bg)}
-.plan b{font-size:30px;line-height:1.1}
-.plan span{font-size:13px;color:var(--ink-2)}
-.wall ul{list-style:none;padding:0;margin:0 auto 20px;max-width:340px;text-align:left;display:grid;gap:6px;font-size:15px}
-.wall li::before{content:"✓";color:var(--brand);font-weight:700;margin-right:8px}
-
 /* modal */
 dialog{border:2px solid var(--line);border-radius:14px;padding:0;max-width:440px;width:calc(100% - 32px);background:var(--bg);color:var(--ink)}
 dialog::backdrop{background:rgba(10,11,18,.55)}
@@ -147,7 +118,12 @@ dialog::backdrop{background:rgba(10,11,18,.55)}
 .mod h2{font-size:26px;line-height:1.15;margin:0 0 10px}
 .mod p{margin:0 0 16px;color:var(--ink-2)}
 .mod label.f{display:grid;gap:6px;font-weight:600;font-size:14px;margin-bottom:12px}
-.mod input[type=email]{border:2px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--bg);width:100%}
+.mod input[type=email],.mod textarea{border:2px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--bg);color:var(--ink);width:100%;font:inherit}
+.mod textarea{resize:vertical;min-height:64px;font-weight:400}
+.mod fieldset{border:0;padding:0;margin:0 0 12px}
+.mod legend{font-weight:600;font-size:14px;padding:0;margin-bottom:8px}
+.mod legend span,.mod label.f span{font-weight:400;color:var(--ink-2)}
+.mod .chips{margin:0}
 .opt{display:flex;gap:9px;align-items:flex-start;font-size:14px;margin:0 0 6px;cursor:pointer}
 .opt input{margin-top:4px;accent-color:var(--brand)}
 .err{color:#C2410C;font-size:14px;min-height:1.4em;margin:4px 0 8px}
@@ -206,17 +182,6 @@ footer{border-top:1px solid var(--rule);padding:18px 0 28px;font-size:13px;color
     <div class="wrap"><div class="tp" id="tp"></div></div>
   </section>
 
-  <section id="v-read" hidden>
-    <div class="rbar">
-      <div class="in">
-        <button class="btn ghost sm" type="button" id="toTitle">Episodes</button>
-        <b id="rTitle"></b><span id="rEp"></span>
-      </div>
-      <div class="prog"><i id="prog"></i></div>
-    </div>
-    <div class="strip" id="strip"></div>
-    <div id="after"></div>
-  </section>
 </main>
 
 <footer><div class="wrap">Hururuk is in pre-launch. The series shown are concept previews and their cover art is AI-generated. <a href="/privacy.html">Privacy notice</a></div></footer>
@@ -226,7 +191,7 @@ footer{border-top:1px solid var(--rule);padding:18px 0 28px;font-size:13px;color
 <script>
 /* ---------- first-party analytics: anonymous events stored in our own Cloudflare D1 ---------- */
 const SESSION = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Math.random()).slice(2) + Date.now();
-let landed = false, finished = false, subSource = '';
+let landed = false, subSource = '';
 function track(name, props = {}) {
   const body = JSON.stringify(Object.assign({ name, session: SESSION }, props));
   try {
@@ -449,7 +414,7 @@ function cover(t){
 }
 
 /* ---------- views ---------- */
-const VIEWS = ['home','title','read'];
+const VIEWS = ['home','title'];
 const show = v => VIEWS.forEach(n => document.getElementById('v-'+n).hidden = n !== v);
 const card = t => `<button class="card" type="button" data-go="t-${t.id}">${cover(t)}<b>${esc(t.title)}</b><span>${esc(GENRES[t.g])}, ${t.eps} episodes</span></button>`;
 
@@ -467,7 +432,7 @@ function renderHome(){
 function renderTitle(t){
   const rows = Array.from({length:6}, (_,i) => {
     const n = i+1, free = n <= FREE, nm = (t.eplist && t.eplist[i]) || `Episode ${n}`;
-    return `<button class="ep${free?'':' locked'}" type="button" ${free?`data-go="r-${t.id}-${n}"`:'data-sub'}>
+    return `<button class="ep${free?'':' locked'}" type="button" ${free?`data-read="${t.id}-${n}"`:'data-sub'}>
       <span class="no">Ep.${n}</span><span class="nm">${esc(nm)}</span>${free?'<span class="free">Free</span>':`<span class="lk">${LOCK} Subscribers</span>`}</button>`;
   }).join('');
   document.getElementById('tp').innerHTML = `
@@ -476,116 +441,42 @@ function renderTitle(t){
       <h1 class="display">${esc(t.title)}</h1>
       <p class="meta">${esc(GENRES[t.g])}. Completed, ${t.eps} episodes.</p>
       <p class="hook">${esc(t.hook)}</p>
-      <button class="btn brand" type="button" data-go="r-${t.id}-1">Read Ep.1 free</button>
+      <button class="btn brand" type="button" data-read="${t.id}-1">Read Ep.1 free</button>
       <div class="eps">${rows}<div class="more">${t.eps - 6} more episodes to the finale</div></div>
       <button class="back" type="button" data-go="home">Back to all series</button>
     </div>`;
 }
 
-/* ---------- panels ---------- */
-function art(kind, c1, c2, seed){
-  const W = 600, H = kind === 'wide' ? 420 : kind === 'cliff' ? 520 : 460;
-  let g = '';
-  if (kind === 'wide'){
-    g = `<rect width="${W}" height="${H}" fill="${c1}"/><circle cx="${430 - seed*20}" cy="120" r="64" fill="${c2}"/>
-      <path d="M0 ${H-110} Q150 ${H-170} 300 ${H-120} T600 ${H-140} V${H} H0Z" fill="${c2}" opacity=".28"/>
-      <path d="M0 ${H-60} Q200 ${H-110} 380 ${H-70} T600 ${H-80} V${H} H0Z" fill="#000" opacity=".35"/>
-      <g fill="#000" opacity=".75"><circle cx="${170+seed*30}" cy="${H-138}" r="13"/><rect x="${156+seed*30}" y="${H-124}" width="28" height="56" rx="12"/></g>`;
-  } else if (kind === 'two'){
-    g = `<rect width="${W}" height="${H}" fill="${c2}"/><rect y="${H-120}" width="${W}" height="120" fill="${c1}" opacity=".18"/>
-      <g fill="${c1}"><circle cx="170" cy="250" r="44"/><rect x="118" y="292" width="104" height="${H-292}" rx="44"/></g>
-      <g fill="${c1}" opacity=".7"><circle cx="440" cy="270" r="40"/><rect x="392" y="308" width="96" height="${H-308}" rx="40"/></g>`;
-  } else if (kind === 'close'){
-    g = `<rect width="${W}" height="${H}" fill="${c1}"/>
-      <g stroke="${c2}" stroke-width="2" opacity=".35">${Array.from({length:14},(_,i)=>`<line x1="0" y1="${i*36}" x2="${W}" y2="${i*36-60}"/>`).join('')}</g>
-      <circle cx="300" cy="${H/2+40}" r="190" fill="${c2}"/>
-      <ellipse cx="236" cy="${H/2+10}" rx="30" ry="${18+seed*4}" fill="#fff" stroke="#1B1D2A" stroke-width="4"/>
-      <ellipse cx="364" cy="${H/2+10}" rx="30" ry="${18+seed*4}" fill="#fff" stroke="#1B1D2A" stroke-width="4"/>
-      <circle cx="${240+seed*4}" cy="${H/2+12}" r="10" fill="#1B1D2A"/><circle cx="${368+seed*4}" cy="${H/2+12}" r="10" fill="#1B1D2A"/>`;
-  } else {
-    const rays = Array.from({length:36},(_,i)=>{const a=i/36*Math.PI*2; return `<line x1="${300+Math.cos(a)*90}" y1="${200+Math.sin(a)*90}" x2="${300+Math.cos(a)*520}" y2="${200+Math.sin(a)*520}"/>`;}).join('');
-    g = `<rect width="${W}" height="${H}" fill="#0E0F16"/><g stroke="${c2}" stroke-width="${2+seed}" opacity=".55">${rays}</g>
-      <circle cx="300" cy="200" r="70" fill="${c1}" stroke="${c2}" stroke-width="4"/>`;
-  }
-  return `<svg viewBox="0 0 ${W} ${H}" role="presentation">${g}</svg>`;
-}
-// crops of the AI cover used as panels: [aspect, background-size, background-position, darken]
-const CROPS = { wide:['600/430','cover','50% 18%',false], two:['600/480','165%','50% 30%',false], close:['600/440','270%','46% 20%',false], cliff:['600/520','125%','50% 55%',true] };
-function ipanel(t, kind, inner){
-  const [ar, size, pos, dark] = CROPS[kind];
-  return `<figure class="panel ipanel${dark?' dark':''}" style="aspect-ratio:${ar};background-image:url('${t.img}');background-size:${size};background-position:${pos}">${inner}</figure>`;
-}
-function script(t, n){
-  if (t.s) return t.s[n-1];
-  const parts = t.hook.split(/(?<=\.)\s+/);
-  return [[parts[0], 'So this is where it starts.', parts[1] || 'Nothing would be the same again.'],
-          ['The next morning.', 'We can’t go back now.', 'Then the door opened.'],
-          ['Three days later.', 'Whatever happens, stay close.', 'Ep.4 changes everything.']][n-1];
-}
-function renderRead(t, n){
-  const [cap, line, cliff] = script(t, n), seed = n - 1;
-  document.getElementById('rTitle').textContent = t.title;
-  document.getElementById('rEp').textContent = `Ep.${n}`;
-  const P = (kind, inner) => t.img ? ipanel(t, kind, inner) : `<figure class="panel">${art(kind, t.c[0], t.c[1], seed)}${inner}</figure>`;
-  document.getElementById('strip').innerHTML =
-    P('wide', `<div class="cap">${esc(cap)}</div>`) +
-    P('two', `<div class="say">${esc(line)}</div>`) +
-    P('close', '') +
-    P('cliff', `<div class="cliff">${esc(cliff)}</div>`);
-  const after = document.getElementById('after');
-  if (n < FREE){
-    const nm = (t.eplist && t.eplist[n]) || `Episode ${n+1}`;
-    after.innerHTML = `<div class="next"><span class="lbl">Up next: Ep.${n+1}, ${esc(nm)}</span>
-      <button class="btn brand" type="button" data-go="r-${t.id}-${n+1}">Read Ep.${n+1} free</button></div>`;
-  } else {
-    after.innerHTML = `<div class="wall"><div class="box">
-      <h2 class="display">That’s the free part.</h2>
-      <p>${t.eps - FREE} more episodes of ${esc(t.title)} are waiting, all the way to the finale.</p>
-      <div class="plan"><b class="display">$4.99</b><span>per month, every completed series</span></div>
-      <ul><li>Read all ${t.eps} episodes today</li><li>All ${TITLES.length} series on Hururuk included</li><li>Cancel anytime</li></ul>
-      <button class="btn brand" type="button" data-sub>Subscribe for $4.99 a month</button>
-    </div></div>`;
-  }
-  updateProg();
-}
-function updateProg(){
-  if (document.getElementById('v-read').hidden) return;
-  const r = document.getElementById('strip').getBoundingClientRect(), vh = innerHeight;
-  const p = Math.min(1, Math.max(0, (vh - r.top) / (r.height + vh * .2)));
-  document.getElementById('prog').style.width = (p*100).toFixed(1) + '%';
-  if (p >= .95 && !finished) { finished = true; const mm = /^r-([a-z0-9]+)-(\d)$/.exec(current); if (mm) track('episode_finish', {title: mm[1], ep: +mm[2]}); }
-}
-addEventListener('scroll', updateProg, {passive:true});
-
 /* ---------- routing ---------- */
 let current = 'home';
 function go(token, push=true){
   let m;
-  if ((m = /^t-([a-z0-9]+)$/.exec(token)) && byId(m[1])){
+  if ((m = /^[tr]-([a-z0-9]+)/.exec(token)) && byId(m[1])){
     if (!landed) { landed = true; track('landing_view', {source: trafficSource()}); }
-    renderTitle(byId(m[1])); show('title'); current = token; track('title_view', {title: m[1]});
-  } else if ((m = /^r-([a-z0-9]+)-(\d)$/.exec(token)) && byId(m[1]) && +m[2] >= 1 && +m[2] <= FREE){
-    const t = byId(m[1]);
-    document.getElementById('toTitle').dataset.go = 't-' + t.id;
-    if (!landed) { landed = true; track('landing_view', {source: trafficSource()}); }
-    finished = false; renderRead(t, +m[2]); show('read'); current = token; track('episode_open', {title: t.id, ep: +m[2]});
+    renderTitle(byId(m[1])); show('title'); current = 't-' + m[1]; track('title_view', {title: m[1]});
   } else {
     renderHome(); show('home'); current = 'home';
   }
   if (!landed) { landed = true; track('landing_view', {source: trafficSource()}); }
   if (push){ try { history.replaceState(null, '', '#' + current); } catch(e) {} }
   window.scrollTo(0, 0);
-  updateProg();
 }
 
 /* ---------- fake door ---------- */
 const dlg = document.getElementById('dlg'), mod = document.getElementById('mod');
-function openSub(){
-  mod.innerHTML = `
-    <h2 class="display" id="dlgH">Hururuk opens soon.</h2>
-    <p>We’re licensing completed series from Korean studios right now. Join the waitlist and your first month is free when we launch. You won’t be charged today.</p>
+function openSub(read){
+  const t = read && byId(subSource);
+  const intro = t
+    ? `<h2 class="display" id="dlgH">Episodes open at launch.</h2>
+    <p>Join the waitlist and read Ep.1 to Ep.3 of ${esc(t.title)} free at launch, plus your first month on us.</p>`
+    : `<h2 class="display" id="dlgH">Hururuk opens soon.</h2>
+    <p>We’re licensing completed series from Korean studios right now. Join the waitlist and your first month is free when we launch. You won’t be charged today.</p>`;
+  mod.innerHTML = `${intro}
     <form id="wl" novalidate>
       <label class="f">Email<input type="email" id="em" autocomplete="email" placeholder="you@example.com"></label>
+      <fieldset><legend>What do you love to read? <span>(optional, pick any)</span></legend>
+        <div class="chips">${Object.keys(GENRES).map(k => `<button type="button" data-pick="${k}" aria-pressed="false">${esc(GENRES[k])}</button>`).join('')}</div></fieldset>
+      <label class="f">Ideas or requests? <span>(optional)</span><textarea id="cm" maxlength="500" rows="2" placeholder="A series you want, a feature, anything"></textarea></label>
       <p hidden><label>Leave this empty <input name="bot-field" id="hp" tabindex="-1" autocomplete="off"></label></p>
       <label class="opt"><input type="checkbox" id="agree"><span>Email me once when Hururuk launches. I’ve read the <a href="/privacy.html" target="_blank" rel="noopener">privacy notice</a>.</span></label>
       <p class="err" id="wlErr" role="alert"></p>
@@ -599,15 +490,17 @@ dlg.addEventListener('submit', async e => {
   const em = document.getElementById('em').value.trim(), err = document.getElementById('wlErr');
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ err.textContent = 'Enter an email address like you@example.com.'; return; }
   if (!document.getElementById('agree').checked){ err.textContent = 'Check the box so we can email you at launch.'; return; }
+  const genres = [...mod.querySelectorAll('[data-pick][aria-pressed="true"]')].map(b => b.dataset.pick);
+  const comment = document.getElementById('cm').value.trim();
   const btn = e.target.querySelector('[type=submit]');
   btn.disabled = true; btn.textContent = 'Joining…'; err.textContent = '';
   try {
     const r = await fetch('/api/waitlist', {method: 'POST', headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({email: em, consent: true, source_title: subSource, bot: document.getElementById('hp').value})});
+      body: JSON.stringify({email: em, consent: true, source_title: subSource, genres, comment, bot: document.getElementById('hp').value})});
     if (!r.ok) throw new Error('HTTP ' + r.status);
     track('waitlist_join', {title: subSource});
     mod.innerHTML = `<div class="ok-mark" aria-hidden="true">✓</div><h2 class="display" id="dlgH">You’re on the list.</h2>
-      <p>We’ll email you once, on launch day, with your free first month.</p>
+      <p>We’ll email you once, on launch day, with your free episodes and first month.</p>
       <div class="row"><button class="btn" type="button" data-close>Keep browsing</button></div>`;
   } catch (_) {
     btn.disabled = false; btn.textContent = 'Join the waitlist';
@@ -617,10 +510,12 @@ dlg.addEventListener('submit', async e => {
 dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
 
 document.addEventListener('click', e => {
-  const b = e.target.closest('[data-go],[data-sub],[data-genre],[data-scroll],[data-close]');
+  const b = e.target.closest('[data-go],[data-sub],[data-read],[data-pick],[data-genre],[data-scroll],[data-close]');
   if (!b) return;
   if (b.hasAttribute('data-close')) { dlg.close(); return; }
-  if (b.hasAttribute('data-sub')) { const mm = /^[tr]-([a-z0-9]+)/.exec(current); subSource = mm ? mm[1] : ''; track('subscribe_click', {title: subSource, page: current.split('-')[0]}); openSub(); return; }
+  if (b.hasAttribute('data-sub')) { const mm = /^[tr]-([a-z0-9]+)/.exec(current); subSource = mm ? mm[1] : ''; track('subscribe_click', {title: subSource, page: current.split('-')[0]}); openSub(false); return; }
+  if (b.dataset.read) { const [id, ep] = b.dataset.read.split('-'); subSource = id; track('episode_open', {title: id, ep: +ep}); openSub(true); return; }
+  if (b.dataset.pick) { b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') !== 'true'); return; }
   if (b.dataset.genre) { genre = b.dataset.genre; renderHome(); return; }
   if (b.dataset.scroll) { document.getElementById(b.dataset.scroll).scrollIntoView({behavior:'smooth'}); return; }
   if (b.dataset.go) go(b.dataset.go);

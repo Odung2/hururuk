@@ -15,21 +15,27 @@
 wrangler.jsonc     Worker 설정 (이름, 정적 파일 폴더, D1 연결)
 src/index.js       Worker 진입점. /api/* 요청을 아래 핸들러로 보내고, 나머지는 public/ 파일을 그대로 보여줌
 public/            정적 사이트
-  index.html       독자용 사이트 (카탈로그, 뷰어, 대기자 등록)
+  index.html       독자용 사이트 (카탈로그, 작품 페이지, 대기자 등록)
   partner.html     CP 파트너 콘솔 데모
   privacy.html     개인정보 안내
   stats.html       실시간 지표 (STATS_KEY 필요, 검색 노출 안 됨)
   covers/          작품 표지 54장
 functions/api/     API 핸들러
-  waitlist.js      POST /api/waitlist  대기자 이메일 저장
+  waitlist.js      POST /api/waitlist  대기자 이메일, 선호 장르, 아이디어 저장
   event.js         POST /api/event     익명 퍼널 이벤트 저장
   stats.js         GET  /api/stats     지표 집계 (x-stats-key 헤더 필요)
-lib/db.js          D1 테이블 자동 생성, 공통 함수
+lib/db.js          D1 테이블 자동 생성 (새 칸은 기존 데이터 그대로 두고 자동 추가), 공통 함수
 ```
 
 ## 측정하는 퍼널
 
-방문 → 작품 페이지 → Ep.1 열람 → Ep.3 완독 → $4.99 클릭 → 대기자 등록
+방문 → 작품 페이지 → 1화 보기 클릭 → 대기자 등록
+
+"Read Ep.1 free"나 무료 회차를 누르면 뷰어 대신 대기자 창이 떠 (출시 때 Ep.1~3 무료 + 첫 달 무료 안내).
+대기자 창에는 선택 질문 두 개가 있어. 안 골라도 가입돼.
+
+- 선호 장르 (11개 중 여러 개): 지표 페이지에 순위표로 나와 ("대기자 N명 중 M명 응답")
+- 아이디어·요청 (자유 입력, 500자): 지표 페이지에 이메일 없이 최신순으로 나와
 
 쿠키는 쓰지 않아. 페이지를 열 때마다 새 익명 세션 ID를 만들어서 세션 단위로만 집계해.
 유입 경로는 `?utm_source=reddit` 같은 링크 파라미터나 이전 사이트 주소로 기록돼.
@@ -67,6 +73,7 @@ D1 콘솔에서 SQL로 바로 볼 수 있어.
 
 ```sql
 SELECT * FROM waitlist ORDER BY joined_at DESC;
+SELECT g.value, COUNT(*) FROM waitlist, json_each(waitlist.genres) g GROUP BY g.value;
 SELECT name, COUNT(DISTINCT session) FROM events GROUP BY name;
 ```
 

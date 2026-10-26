@@ -25,6 +25,7 @@ button{background:var(--brand);color:#fff;border-color:var(--brand);cursor:point
 table{width:100%;border-collapse:collapse;font-size:14px} th,td{padding:7px 6px;border-bottom:1px solid var(--rule);text-align:right} th:first-child,td:first-child{text-align:left}
 th{color:var(--ink-2);font-weight:600;font-size:12px} .wrap{overflow-x:auto}
 .err{color:var(--bad)} h2{font-size:16px;margin:0 0 10px}
+#comments td:last-child{text-align:left;white-space:pre-wrap;min-width:240px}
 </style>
 </head>
 <body>
@@ -40,12 +41,15 @@ th{color:var(--ink-2);font-weight:600;font-size:12px} .wrap{overflow-x:auto}
 <div id="out" hidden>
   <div class="card kpis" id="kpis"></div>
   <div class="card"><h2>퍼널</h2><div id="funnel"></div></div>
+  <div class="card"><h2>선호 장르</h2><p class="sub" id="genreNote" style="margin:0 0 10px"></p><div class="wrap"><table id="genres"></table></div></div>
   <div class="card"><h2>유입 경로별</h2><div class="wrap"><table id="sources"></table></div></div>
   <div class="card"><h2>작품별</h2><div class="wrap"><table id="titles"></table></div></div>
   <div class="card"><h2>일별</h2><div class="wrap"><table id="daily"></table></div></div>
+  <div class="card"><h2>대기자 아이디어·요청</h2><div class="wrap"><table id="comments"></table></div></div>
 </div>
 </main>
 <script>
+const GENRES = {rofan:'로판',action:'액션 판타지',drama:'드라마·로맨스',bl:'BL',gl:'GL',family:'가족',hist:'사극',thriller:'스릴러·호러',comedy:'코미디·일상',sports:'스포츠',sf:'SF'};
 const NAMES = {"moonlit": "The Moonlit Apothecary", "saintess": "The Saintess Has Retired", "hunter": "Return of the 99th Hunter", "iron": "Iron Sword Academy", "murim": "Murim Tax Collector", "necro": "Necromancer Delivery Service", "divorce": "Our Divorce Is Next Tuesday", "cafe": "Night Shift at Café Haneul", "tensteps": "Ten Steps Behind the Crown Prince", "chorus": "Second Chorus", "bouquets": "Two Bouquets", "lastbus": "The Last Bus to Jangsan", "bookkeeper": "The Duke’s Tiny Bookkeeper", "uncles": "My Seven Overprotective Uncles", "witch": "The Archive Witch", "crown": "Paper Crown", "duchess": "The Duchess Won’t Sign", "spring": "Our Contract Ends in Spring", "curses": "The Lady Who Sells Curses", "propose": "Don’t Propose, Your Highness", "marquess": "The Marquess’s Secretary Knows Too Much", "empress": "Seven Days as the Empress", "accountant": "The Palace Accountant Wants a Raise", "hireme": "Hire Me, Grand Duke", "healer": "The F-Rank Healer Refuses to Die", "regressor": "The Regressor’s Last Dungeon", "ninth": "Blade of the Ninth Disciple", "lostfound": "The Dungeon Has a Lost and Found", "gate4am": "The Gate Opens at 4 A.M.", "swordsaint": "The Sword Saint’s Day Off", "dragonjob": "A Dragon Applied for the Job", "overtime": "Overtime With My Rival", "transfer": "The Transfer Student Sits Alone", "wedding20": "20 Minutes Before the Wedding", "blinddate": "Cancel the Blind Date", "planner": "My Ex’s Wedding Planner", "rule7": "House Rule No. 7", "sunbae": "That’s My Seat, Sunbae", "pitcher": "The Pitcher’s Interpreter", "umbrella": "Same Umbrella", "setpoint": "Last Set Point", "bench": "Bench Warmer, Season 3", "orbital": "Orbital Night Market", "busanport": "The Last Signal From Busan Port", "inspector": "The Royal Inspector’s Notebook", "rumor": "Hanyang Rumor Office", "apt1204": "Apartment 1204 Has No Floor Plan", "missing37": "Missing Person #37", "password": "The Neighbor Knows My Password", "desk": "Class 3-7 Is One Desk Short", "rider": "The Delivery Rider Saw Everything", "catstore": "My Cat Runs a Convenience Store", "grandma": "Grandma’s Gym", "ghostrent": "The Ghost Pays Half the Rent"};
 const $ = id => document.getElementById(id);
 const pct = (a, b) => b ? (a / b * 100).toFixed(1) + '%' : '–';
@@ -67,17 +71,20 @@ async function load() {
   } catch (e) { $('msg').textContent = '불러오기 실패: ' + e.message; return; }
   const f = d.funnel;
   $('kpis').innerHTML = [
-    ['방문자', f.visited], ['$4.99 클릭률', pct(f.subscribe_clicked, f.visited)],
+    ['방문자', f.visited], ['대기자 전환율', pct(f.joined, f.visited)],
     ['대기자 (기간 내)', f.joined], ['대기자 (전체)', d.waitlist_total]
   ].map(([k, v]) => '<div class="kpi"><span>' + k + '</span><b>' + v + '</b></div>').join('');
-  const steps = [['방문', f.visited], ['작품 페이지', f.title_page], ['Ep.1 열람', f.ep1_opened], ['Ep.3 완독', f.ep3_finished], ['$4.99 클릭', f.subscribe_clicked], ['대기자 등록', f.joined]];
+  const steps = [['방문', f.visited], ['작품 페이지', f.title_page], ['1화 보기 클릭', f.read_clicked], ['대기자 등록', f.joined]];
   const losses = steps.map((s, i) => i && steps[i-1][1] ? 1 - s[1] / steps[i-1][1] : 0);
   const maxLoss = Math.max(...losses.slice(1));
   $('funnel').innerHTML = steps.map((s, i) =>
     '<div class="f"><span>' + s[0] + '</span><div class="track"><div class="fill" style="width:' + (f.visited ? s[1] / f.visited * 100 : 0) + '%"></div></div><b>' + s[1] + '</b>' +
     '<span class="lost' + (i && losses[i] === maxLoss && maxLoss > 0 ? ' max' : '') + '">' + (i ? '−' + (losses[i] * 100).toFixed(0) + '%' : '') + '</span></div>').join('');
   table($('sources'), ['유입 경로', '방문', '$4.99 클릭', '클릭률', '대기자'], d.sources.map(s => [s.source || 'direct', s.visits, s.subscribe_clicks, pct(s.subscribe_clicks, s.visits), s.joins]));
-  table($('titles'), ['작품', '페이지 방문', 'Ep.1 열람', 'Ep.3 완독', '완독률', '$4.99 클릭'], d.titles.map(t => [NAMES[t.title] || t.title, t.title_views, t.ep1_opens, t.ep3_finishes, pct(t.ep3_finishes, t.ep1_opens), t.subscribe_clicks]));
+  table($('titles'), ['작품', '페이지 방문', '1화 보기 클릭', '클릭률', '$4.99 클릭', '대기자'], d.titles.map(t => [NAMES[t.title] || t.title, t.title_views, t.read_clicks, pct(t.read_clicks, t.title_views), t.subscribe_clicks, t.joins]));
+  $('genreNote').textContent = '대기자 ' + d.waitlist_total + '명 중 ' + d.genre_answered + '명 응답 (전체 기간, 여러 개 선택 가능)';
+  table($('genres'), ['순위', '장르', '선택 수', '응답자 중 비율'], d.genres.map((g, i) => [i + 1, GENRES[g.genre] || g.genre, g.picks, pct(g.picks, d.genre_answered)]));
+  table($('comments'), ['날짜', '등록한 작품', '내용'], d.comments.map(c => [c.joined_at.slice(0, 10), NAMES[c.source_title] || c.source_title || '–', c.comment]));
   table($('daily'), ['날짜', '방문', '$4.99 클릭', '대기자'], d.daily.map(x => [x.day, x.visits, x.subscribe_clicks, x.joins]));
   $('out').hidden = false;
 }
