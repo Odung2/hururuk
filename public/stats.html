@@ -42,6 +42,7 @@ th{color:var(--ink-2);font-weight:600;font-size:12px} .wrap{overflow-x:auto}
   <div class="card kpis" id="kpis"></div>
   <div class="card"><h2>퍼널</h2><div id="funnel"></div></div>
   <div class="card"><h2>선호 장르</h2><p class="sub" id="genreNote" style="margin:0 0 10px"></p><div class="wrap"><table id="genres"></table></div></div>
+  <div class="card"><h2>성별·연령대</h2><p class="sub" id="profileNote" style="margin:0 0 10px"></p><div class="wrap"><table id="gender"></table></div><div class="wrap" style="margin-top:14px"><table id="age"></table></div></div>
   <div class="card"><h2>유입 경로별</h2><div class="wrap"><table id="sources"></table></div></div>
   <div class="card"><h2>작품별</h2><div class="wrap"><table id="titles"></table></div></div>
   <div class="card"><h2>일별</h2><div class="wrap"><table id="daily"></table></div></div>
@@ -50,6 +51,8 @@ th{color:var(--ink-2);font-weight:600;font-size:12px} .wrap{overflow-x:auto}
 </main>
 <script>
 const GENRES = {rofan:'로판',action:'액션 판타지',drama:'드라마·로맨스',bl:'BL',gl:'GL',family:'가족',hist:'사극',thriller:'스릴러·호러',comedy:'코미디·일상',sports:'스포츠',sf:'SF'};
+const GENDERS = {woman:'여성',man:'남성',nonbinary:'논바이너리',na:'밝히지 않음'};
+const AGES = ['13-17','18-24','25-34','35+'];
 const NAMES = {"moonlit": "The Moonlit Apothecary", "saintess": "The Saintess Has Retired", "hunter": "Return of the 99th Hunter", "iron": "Iron Sword Academy", "murim": "Murim Tax Collector", "necro": "Necromancer Delivery Service", "divorce": "Our Divorce Is Next Tuesday", "cafe": "Night Shift at Café Haneul", "tensteps": "Ten Steps Behind the Crown Prince", "chorus": "Second Chorus", "bouquets": "Two Bouquets", "lastbus": "The Last Bus to Jangsan", "bookkeeper": "The Duke’s Tiny Bookkeeper", "uncles": "My Seven Overprotective Uncles", "witch": "The Archive Witch", "crown": "Paper Crown", "duchess": "The Duchess Won’t Sign", "spring": "Our Contract Ends in Spring", "curses": "The Lady Who Sells Curses", "propose": "Don’t Propose, Your Highness", "marquess": "The Marquess’s Secretary Knows Too Much", "empress": "Seven Days as the Empress", "accountant": "The Palace Accountant Wants a Raise", "hireme": "Hire Me, Grand Duke", "healer": "The F-Rank Healer Refuses to Die", "regressor": "The Regressor’s Last Dungeon", "ninth": "Blade of the Ninth Disciple", "lostfound": "The Dungeon Has a Lost and Found", "gate4am": "The Gate Opens at 4 A.M.", "swordsaint": "The Sword Saint’s Day Off", "dragonjob": "A Dragon Applied for the Job", "overtime": "Overtime With My Rival", "transfer": "The Transfer Student Sits Alone", "wedding20": "20 Minutes Before the Wedding", "blinddate": "Cancel the Blind Date", "planner": "My Ex’s Wedding Planner", "rule7": "House Rule No. 7", "sunbae": "That’s My Seat, Sunbae", "pitcher": "The Pitcher’s Interpreter", "umbrella": "Same Umbrella", "setpoint": "Last Set Point", "bench": "Bench Warmer, Season 3", "orbital": "Orbital Night Market", "busanport": "The Last Signal From Busan Port", "inspector": "The Royal Inspector’s Notebook", "rumor": "Hanyang Rumor Office", "apt1204": "Apartment 1204 Has No Floor Plan", "missing37": "Missing Person #37", "password": "The Neighbor Knows My Password", "desk": "Class 3-7 Is One Desk Short", "rider": "The Delivery Rider Saw Everything", "catstore": "My Cat Runs a Convenience Store", "grandma": "Grandma’s Gym", "ghostrent": "The Ghost Pays Half the Rent"};
 const $ = id => document.getElementById(id);
 const pct = (a, b) => b ? (a / b * 100).toFixed(1) + '%' : '–';
@@ -83,7 +86,16 @@ async function load() {
   table($('sources'), ['유입 경로', '방문', '$4.99 클릭', '클릭률', '대기자'], d.sources.map(s => [s.source || 'direct', s.visits, s.subscribe_clicks, pct(s.subscribe_clicks, s.visits), s.joins]));
   table($('titles'), ['작품', '페이지 방문', '1화 보기 클릭', '클릭률', '$4.99 클릭', '대기자'], d.titles.map(t => [NAMES[t.title] || t.title, t.title_views, t.read_clicks, pct(t.read_clicks, t.title_views), t.subscribe_clicks, t.joins]));
   $('genreNote').textContent = '대기자 ' + d.waitlist_total + '명 중 ' + d.genre_answered + '명 응답 (전체 기간, 여러 개 선택 가능)';
-  table($('genres'), ['순위', '장르', '선택 수', '응답자 중 비율'], d.genres.map((g, i) => [i + 1, GENRES[g.genre] || g.genre, g.picks, pct(g.picks, d.genre_answered)]));
+  const byG = d.profile.genre_by_gender;
+  table($('genres'), ['순위', '장르', '선택 수', '응답자 중 비율', '여성', '남성', '기타'], d.genres.map((g, i) => {
+    const r = byG[g.genre] || {};
+    return [i + 1, GENRES[g.genre] || g.genre, g.picks, pct(g.picks, d.genre_answered), r.woman || 0, r.man || 0, (r.nonbinary || 0) + (r.na || 0)];
+  }));
+  const pr = d.profile;
+  $('profileNote').textContent = '대기자 ' + d.waitlist_total + '명 중 ' + pr.answered + '명 응답 (가입 후 선택 질문, 전체 기간). 장르표의 여성·남성·기타 칸은 성별에 답한 사람만 셈';
+  const gN = Object.values(pr.gender).reduce((a, b) => a + b, 0), aN = Object.values(pr.age).reduce((a, b) => a + b, 0);
+  table($('gender'), ['성별', '응답 수', '비율'], Object.keys(GENDERS).filter(k => pr.gender[k]).map(k => [GENDERS[k], pr.gender[k], pct(pr.gender[k], gN)]));
+  table($('age'), ['연령대', '응답 수', '비율'], AGES.filter(k => pr.age[k]).map(k => [k, pr.age[k], pct(pr.age[k], aN)]));
   table($('comments'), ['날짜', '등록한 작품', '내용'], d.comments.map(c => [c.joined_at.slice(0, 10), NAMES[c.source_title] || c.source_title || '–', c.comment]));
   table($('daily'), ['날짜', '방문', '$4.99 클릭', '대기자'], d.daily.map(x => [x.day, x.visits, x.subscribe_clicks, x.joins]));
   $('out').hidden = false;

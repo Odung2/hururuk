@@ -1,12 +1,14 @@
 // Hururuk Worker: routes /api/* to the handlers in functions/api, everything else to the static site in public/.
 import { onRequestPost as waitlist } from '../functions/api/waitlist.js';
 import { onRequestPost as event } from '../functions/api/event.js';
+import { onRequestPost as profile } from '../functions/api/profile.js';
 import { onRequestGet as stats } from '../functions/api/stats.js';
 import { json } from '../lib/db.js';
 
 const ROUTES = {
   '/api/waitlist': ['POST', waitlist],
   '/api/event': ['POST', event],
+  '/api/profile': ['POST', profile],
   '/api/stats': ['GET', stats]
 };
 

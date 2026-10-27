@@ -124,6 +124,7 @@ dialog::backdrop{background:rgba(10,11,18,.55)}
 .mod legend{font-weight:600;font-size:14px;padding:0;margin-bottom:8px}
 .mod legend span,.mod label.f span{font-weight:400;color:var(--ink-2)}
 .mod .chips{margin:0}
+.mod .more-q{border-top:1px solid var(--rule);padding-top:14px;margin-top:4px}
 .opt{display:flex;gap:9px;align-items:flex-start;font-size:14px;margin:0 0 6px;cursor:pointer}
 .opt input{margin-top:4px;accent-color:var(--brand)}
 .err{color:#C2410C;font-size:14px;min-height:1.4em;margin:4px 0 8px}
@@ -191,7 +192,7 @@ footer{border-top:1px solid var(--rule);padding:18px 0 28px;font-size:13px;color
 <script>
 /* ---------- first-party analytics: anonymous events stored in our own Cloudflare D1 ---------- */
 const SESSION = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Math.random()).slice(2) + Date.now();
-let landed = false, subSource = '';
+let landed = false, subSource = '', joinedEmail = '';
 function track(name, props = {}) {
   const body = JSON.stringify(Object.assign({ name, session: SESSION }, props));
   try {
@@ -205,6 +206,8 @@ function trafficSource() {
   try { return document.referrer ? new URL(document.referrer).hostname : 'direct'; } catch (e) { return 'direct'; }
 }
 const IMGS = {"moonlit": "/covers/moonlit.webp", "saintess": "/covers/saintess.webp", "hunter": "/covers/hunter.webp", "iron": "/covers/iron.webp", "murim": "/covers/murim.webp", "necro": "/covers/necro.webp", "divorce": "/covers/divorce.webp", "cafe": "/covers/cafe.webp", "tensteps": "/covers/tensteps.webp", "chorus": "/covers/chorus.webp", "bouquets": "/covers/bouquets.webp", "lastbus": "/covers/lastbus.webp", "bookkeeper": "/covers/bookkeeper.webp", "uncles": "/covers/uncles.webp", "witch": "/covers/witch.webp", "crown": "/covers/crown.webp", "duchess": "/covers/duchess.webp", "spring": "/covers/spring.webp", "curses": "/covers/curses.webp", "propose": "/covers/propose.webp", "marquess": "/covers/marquess.webp", "empress": "/covers/empress.webp", "accountant": "/covers/accountant.webp", "hireme": "/covers/hireme.webp", "healer": "/covers/healer.webp", "regressor": "/covers/regressor.webp", "ninth": "/covers/ninth.webp", "lostfound": "/covers/lostfound.webp", "gate4am": "/covers/gate4am.webp", "swordsaint": "/covers/swordsaint.webp", "dragonjob": "/covers/dragonjob.webp", "overtime": "/covers/overtime.webp", "transfer": "/covers/transfer.webp", "wedding20": "/covers/wedding20.webp", "blinddate": "/covers/blinddate.webp", "planner": "/covers/planner.webp", "rule7": "/covers/rule7.webp", "sunbae": "/covers/sunbae.webp", "pitcher": "/covers/pitcher.webp", "umbrella": "/covers/umbrella.webp", "setpoint": "/covers/setpoint.webp", "bench": "/covers/bench.webp", "orbital": "/covers/orbital.webp", "busanport": "/covers/busanport.webp", "inspector": "/covers/inspector.webp", "rumor": "/covers/rumor.webp", "apt1204": "/covers/apt1204.webp", "missing37": "/covers/missing37.webp", "password": "/covers/password.webp", "desk": "/covers/desk.webp", "rider": "/covers/rider.webp", "catstore": "/covers/catstore.webp", "grandma": "/covers/grandma.webp", "ghostrent": "/covers/ghostrent.webp"};
+const GENDERS = {woman:'Woman',man:'Man',nonbinary:'Non-binary',na:'Prefer not to say'};
+const AGES = {'13-17':'13–17','18-24':'18–24','25-34':'25–34','35+':'35+'};
 const GENRES = {rofan:'Romance fantasy',action:'Action fantasy',drama:'Drama & romance',bl:'BL',gl:'GL',family:'Family',hist:'Historical',thriller:'Thriller & horror',comedy:'Comedy & slice of life',sports:'Sports',sf:'Sci-fi'};
 const PAL = {
   rofan:[['#2B2A6B','#F7C6D9'],['#5B1F3C','#FFD1A6'],['#1E3550','#BFE3FF'],['#3D2B1F','#F2C46D']],
@@ -499,9 +502,14 @@ dlg.addEventListener('submit', async e => {
       body: JSON.stringify({email: em, consent: true, source_title: subSource, genres, comment, bot: document.getElementById('hp').value})});
     if (!r.ok) throw new Error('HTTP ' + r.status);
     track('waitlist_join', {title: subSource});
+    joinedEmail = em;
+    const pick = (group, opts) => Object.keys(opts).map(k => `<button type="button" data-one="${group}" data-val="${k}" aria-pressed="false">${esc(opts[k])}</button>`).join('');
     mod.innerHTML = `<div class="ok-mark" aria-hidden="true">✓</div><h2 class="display" id="dlgH">You’re on the list.</h2>
       <p>We’ll email you once, on launch day, with your free episodes and first month.</p>
-      <div class="row"><button class="btn" type="button" data-close>Keep browsing</button></div>`;
+      <div class="more-q"><p><b>One more thing?</b> Optional, and it helps us pick the right series.</p>
+        <fieldset><legend>Gender</legend><div class="chips">${pick('gender', GENDERS)}</div></fieldset>
+        <fieldset><legend>Age</legend><div class="chips">${pick('age', AGES)}</div></fieldset></div>
+      <div class="row"><button class="btn ghost" type="button" data-close>Skip</button><button class="btn brand" type="button" data-profile>Done</button></div>`;
   } catch (_) {
     btn.disabled = false; btn.textContent = 'Join the waitlist';
     err.textContent = 'Something went wrong. Please try again in a moment.';
@@ -510,12 +518,19 @@ dlg.addEventListener('submit', async e => {
 dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
 
 document.addEventListener('click', e => {
-  const b = e.target.closest('[data-go],[data-sub],[data-read],[data-pick],[data-genre],[data-scroll],[data-close]');
+  const b = e.target.closest('[data-go],[data-sub],[data-read],[data-pick],[data-one],[data-profile],[data-genre],[data-scroll],[data-close]');
   if (!b) return;
   if (b.hasAttribute('data-close')) { dlg.close(); return; }
   if (b.hasAttribute('data-sub')) { const mm = /^[tr]-([a-z0-9]+)/.exec(current); subSource = mm ? mm[1] : ''; track('subscribe_click', {title: subSource, page: current.split('-')[0]}); openSub(false); return; }
   if (b.dataset.read) { const [id, ep] = b.dataset.read.split('-'); subSource = id; track('episode_open', {title: id, ep: +ep}); openSub(true); return; }
   if (b.dataset.pick) { b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') !== 'true'); return; }
+  if (b.dataset.one) { const on = b.getAttribute('aria-pressed') !== 'true'; mod.querySelectorAll(`[data-one="${b.dataset.one}"]`).forEach(x => x.setAttribute('aria-pressed', 'false')); b.setAttribute('aria-pressed', on); return; }
+  if (b.hasAttribute('data-profile')) {
+    const val = g => { const x = mod.querySelector(`[data-one="${g}"][aria-pressed="true"]`); return x ? x.dataset.val : ''; };
+    const gender = val('gender'), age = val('age');
+    if (gender || age) { try { fetch('/api/profile', {method: 'POST', headers: {'Content-Type': 'application/json'}, keepalive: true, body: JSON.stringify({email: joinedEmail, gender, age})}); } catch (_) {} }
+    dlg.close(); return;
+  }
   if (b.dataset.genre) { genre = b.dataset.genre; renderHome(); return; }
   if (b.dataset.scroll) { document.getElementById(b.dataset.scroll).scrollIntoView({behavior:'smooth'}); return; }
   if (b.dataset.go) go(b.dataset.go);

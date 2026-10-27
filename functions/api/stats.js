@@ -51,10 +51,24 @@ export async function onRequestGet({ request, env }) {
     FROM waitlist w, json_each(w.genres) g WHERE w.genres IS NOT NULL
     GROUP BY g.value ORDER BY picks DESC`).all();
 
+  // Optional gender and age answers, with each respondent's genres for the genre-by-gender view.
+  const people = await env.DB.prepare(`SELECT gender, age_band, genres FROM waitlist
+    WHERE gender IS NOT NULL OR age_band IS NOT NULL`).all();
+  const profile = { answered: people.results.length, gender: {}, age: {}, genre_by_gender: {} };
+  for (const p of people.results) {
+    if (p.gender) profile.gender[p.gender] = (profile.gender[p.gender] || 0) + 1;
+    if (p.age_band) profile.age[p.age_band] = (profile.age[p.age_band] || 0) + 1;
+    if (!p.gender || !p.genres) continue;
+    for (const g of JSON.parse(p.genres)) {
+      const row = profile.genre_by_gender[g] = profile.genre_by_gender[g] || {};
+      row[p.gender] = (row[p.gender] || 0) + 1;
+    }
+  }
+
   // Free-text ideas, newest first. Emails are left out on purpose.
   const comments = await env.DB.prepare(`SELECT joined_at, source_title, comment FROM waitlist
     WHERE comment IS NOT NULL ORDER BY joined_at DESC LIMIT 100`).all();
 
   return json({ ok: true, days, funnel, titles: titles.results, sources: sources.results, daily: daily.results,
-    waitlist_total: waitlist.total, genre_answered: genreAnswered.n, genres: genres.results, comments: comments.results });
+    waitlist_total: waitlist.total, genre_answered: genreAnswered.n, genres: genres.results, profile, comments: comments.results });
 }
